@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bianca Rossi | TwoTwentyTwo</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=SF+Mono&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/news.css">
+    <link rel="stylesheet" href="../styles/author.css">
+</head>
+
+<body>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#">Mondo</a>
+        <a href="#">Mercati</a>
+        <a href="#">Politica</a>
+        <a href="#">Clima</a>
+        <a href="#" style="color: var(--accent); font-size: 1.5rem; margin-top: 20px;">Abbonati Ora</a>
+    </div>
+
+    <nav class="navbar">
+        <div class="container nav-inner">
+            <a href="../index.html" class="brand">
+                Two<span class="mid">Twenty</span>Two<span class="dot">.</span>
+            </a>
+
+            <div class="nav-links">
+                <a href="#">Mondo</a>     <a href="#">Mercati</a>   <a href="#">Politica</a>  <a href="#">Clima</a>     <a href="#" class="nav-btn">Abbonati</a>
+            </div>
+
+            <div class="mobile-toggle" onclick="toggleMenu()" aria-label="Toggle Menu">
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="container">
+        <div class="author-profile-hero">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1000&auto=format&fit=crop" alt="Bianca Rossi" class="author-big-photo">
+            
+            <span class="author-role">Corrispondente, Italia</span>
+            <h1 class="author-name-title">Bianca Rossi</h1>
+            
+            <p class="author-bio">
+                Giornalista investigativa con base a Roma. Copre l'intersezione tra politica europea, crisi climatiche e movimenti sociali. Precedentemente a La Repubblica e The Guardian.
+            </p>
+
+            <div class="author-social-links">
+                <a href="#">X (Twitter)</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">Email</a>
+            </div>
+        </div>
+    </section>
+
+    <hr class="container" style="border: none; border-top: 1px solid rgba(0,0,0,0.1); margin-bottom: 60px;">
+
+    <section class="container">
+        <div class="section-header" style="margin-bottom: 40px;">
+            <h2>Ultimi articoli di Bianca</h2>
+        </div>
+
+        <div class="author-articles-grid">
+            <a href="#" class="simple-article-card">
+                <img src="https://images.unsplash.com/photo-1555848962-6e79363ec58f?q=80&w=2000&auto=format&fit=crop" alt="Protesta Torino">
+                <span class="eyebrow" style="color: var(--accent);">Politica</span>
+                <h3>Torino sotto assedio: La caduta di Askatasuna e il futuro del dissenso</h3>
+                <p style="color: var(--text-secondary);">21 Dic 2025</p>
+            </a>
+
+             <a href="#" class="simple-article-card">
+                <img src="https://images.unsplash.com/photo-1611273426858-450d8e3c9f98?q=80&w=2070&auto=format&fit=crop" alt="Crisi Energetica">
+                <span class="eyebrow" style="color: var(--accent);">Mercati</span>
+                <h3>La scommessa energetica dell'Italia per il 2030</h3>
+                <p style="color: var(--text-secondary);">15 Nov 2025</p>
+            </a>
+
+             <a href="#" class="simple-article-card">
+                <img src="https://images.unsplash.com/photo-1516214104703-d870798883c5?q=80&w=2070&auto=format&fit=crop" alt="Venezia Clima">
+                <span class="eyebrow" style="color: var(--accent);">Clima</span>
+                <h3>Venezia e il MOSE: Cronaca di un salvataggio a metà</h3>
+                <p style="color: var(--text-secondary);">2 Ott 2025</p>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-brand-wrapper">
+                <a href="#" class="f-brand">
+                    Two<span class="mid">Twenty</span>Two<span class="dot">.</span>
+                </a>
+                
+                <p class="f-mission">
+                    Filtriamo il segnale dal rumore. <br>
+                    Curiamo il futuro della tecnologia, del design e della cultura.
+                </p>
+
+                <div class="f-meta">
+                    <span class="tag">FOND. 2024</span>
+                    <span class="sep">/</span>
+                    <span class="tag">EDIZIONE 2.5</span>
+                    <div class="live-indicator">
+                        <span class="blink"></span> Sistemi Attivi
+                    </div>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Sezioni</h4>
+                <ul>
+                    <li><a href="#">Mondo</a></li>
+                    <li><a href="#">Deep Tech</a></li>
+                    <li><a href="#">Design & Arte</a></li>
+                    <li><a href="#">Venture Capital</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Azienda</h4>
+                <ul>
+                    <li><a href="#">Chi Siamo</a></li>
+                    <li><a href="#">Lavora con noi</a></li>
+                    <li><a href="#">Privacy (GDPR)</a></li>
+                    <li><a href="#">Contatti</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Seguici</h4>
+                <ul>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">X / Twitter</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">Feed RSS</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container"
+            style="display: flex; justify-content: space-between; align-items: center; color: #444; font-size: 0.8rem; padding-bottom: 40px;">
+            <p>© 2025 TwoTwentyTwo Media.</p>
+            <p>Milano &bull; San Francisco &bull; Tokyo</p>
+        </div>
+    </footer>
+    <script src="../script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,355 @@
+[
+    {
+        "id": "021",
+        "title": "Danimarca: L'ultima lettera",
+        "category": "Future",
+        "date": "Dec 21, 2025",
+        "image": "https://images.unsplash.com/photo-1596495577886-d920f1fb7238?q=80&w=2074",
+        "url": "articles/denmark-end-of-letters.html",
+        "summary": "Dopo 400 anni, Copenaghen spegne il servizio postale statale. Un passo inevitabile verso il futuro o una perdita culturale?",
+        "tags": ["society", "featured", "scroll"]
+    },
+    {
+        "id": "020",
+        "title": "Regno Unito: La crisi della patente impossibile",
+        "category": "Mondo",
+        "date": "Dec 21, 2025",
+        "image": "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=2070",
+        "url": "articles/uk-driving-test-crisis.html",
+        "summary": "Bot, attese di 22 settimane e stipendi fermi: perché nessuno vuole più fare l'esaminatore di guida.",
+        "tags": ["society", "featured", "scroll"]
+    },
+    {
+        "id": "019",
+        "title": "Messico 2026: Il Mondiale Proibito",
+        "category": "Sport",
+        "date": "Dec 21, 2025",
+        "image": "https://images.unsplash.com/photo-1518091043644-c1d4457512c6?q=80&w=2070",
+        "url": "articles/mexico-world-cup-exclusion.html",
+        "summary": "Biglietti impossibili e l'ombra di Trump: perché i tifosi messicani si sentono esclusi dalla loro stessa festa.",
+        "tags": ["sport", "featured", "scroll", "world"]
+    },
+    {
+        "id": "018",
+        "title": "Il Regno Unito al gelo: L'era dei 'Warm Spaces'",
+        "category": "Mondo",
+        "date": "Dec 21, 2025",
+        "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=2070",
+        "url": "articles/uk-warm-spaces.html",
+        "summary": "Quando la casa è troppo fredda, la comunità apre le porte. Viaggio nei nuovi rifugi della crisi energetica britannica.",
+        "tags": ["society", "featured", "scroll"]
+    },
+    {
+        "id": "017",
+        "title": "Steve Evans: L'ultima scommessa dei Bristol Rovers",
+        "category": "Sport",
+        "date": "Dec 21, 2025",
+        "image": "https://images.unsplash.com/photo-1577223625816-7546f13df25d?q=80&w=2070",
+        "url": "articles/evans-bristol-rovers.html",
+        "summary": "Rinvigorito e trasformato, il manager veterano ferma l'emorragia di 10 sconfitte e punta al Bristol City.",
+        "tags": ["sport", "featured", "scroll"]
+    },
+    {
+        "id": "016",
+        "title": "Premier League: Vittorie amare e il via all'AFCON",
+        "category": "Sport",
+        "date": "Dec 21, 2025",
+        "image": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=2070",
+        "url": "articles/football-weekend-recap.html",
+        "summary": "Il Liverpool vince ma perde Isak. Intanto in Marocco parte lo spettacolo della Coppa d'Africa.",
+        "tags": ["sport", "featured", "scroll"]
+    },
+    {
+        "id": "015",
+        "title": "La Guida ai Regali Virtuali 2025",
+        "category": "Future",
+        "date": "Dec 21, 2025",
+        "image": "https://images.unsplash.com/photo-1627844607758-a006c7479862?q=80&w=2070",
+        "url": "articles/virtual-gifts-guide.html",
+        "summary": "V-Bucks, Robux o Minecoin? Come orientarsi nell'economia virtuale sotto l'albero.",
+        "tags": ["guide", "scroll", "tech"]
+    },
+    {
+        "id": "014",
+        "title": "Australia: Una settimana di buio",
+        "category": "World",
+        "date": "Dec 21, 2025",
+        "image": "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?q=80&w=2070",
+        "url": "articles/bondi-memorial.html",
+        "summary": "Tra lutto e tensione politica, Sydney ricorda le vittime dell'attacco di Bondi.",
+        "tags": ["featured", "scroll", "world"]
+    },
+    {
+        "id": "000",
+        "title": "Torino sotto assedio",
+        "category": "World",
+        "date": "Dec 20, 2025",
+        "image": "https://images.unsplash.com/photo-1555848962-6e79363ec58f?q=80&w=2000",
+        "url": "articles/turin-askatasuna.html",
+        "summary": "Scontri esplodono in Italia mentre 5.000 manifestanti sfidano lo sgombero dello storico centro sociale Askatasuna.",
+        "tags": ["featured", "scroll"]
+    },
+    {
+        "id": "001",
+        "title": "Agricoltura verticale 2.0",
+        "category": "Sustainability",
+        "date": "Dec 20, 2025",
+        "image": "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?q=80&w=2070",
+        "url": "articles/vertical-farming.html",
+        "summary": "Perché i tetti di Tokyo stanno nutrendo la città.",
+        "tags": ["featured", "scroll"]
+    },
+    {
+        "id": "002",
+        "title": "Il silenzio è lusso",
+        "category": "Automotive",
+        "date": "Dec 18, 2025",
+        "image": "https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2070",
+        "url": "articles/silence-luxury.html",
+        "summary": "Il sound design è il nuovo campo di battaglia per i veicoli elettrici.",
+        "tags": ["scroll"]
+    },
+    {
+        "id": "003",
+        "title": "IPO di SpaceX confermata",
+        "category": "Markets",
+        "isTicker": true,
+        "tickerValue": "+4.2%",
+        "tickerColor": "#34C759"
+    },
+    {
+        "id": "004",
+        "title": "Ultim’ora: l’UE approva l’AI Safety Act",
+        "category": "Policy",
+        "date": "Dec 22, 2025",
+        "summary": "Le nuove regole ridefiniscono i foundation model e le responsabilità legali.",
+        "isBreaking": true,
+        "tags": ["breaking", "ticker"]
+    },
+    {
+        "id": "005",
+        "title": "Dentro lo Spatial OS di Apple",
+        "category": "Consumer Tech",
+        "date": "Dec 21, 2025",
+        "image": "https://images.unsplash.com/photo-1581091870627-3c4c1b0b8a9b?q=80&w=2070",
+        "url": "articles/apple-spatial-os.html",
+        "summary": "Perché le interfacce si stanno dissolvendo nello spazio.",
+        "tags": ["featured"]
+    },
+    {
+        "id": "006",
+        "title": "La corsa agli armamenti delle batterie",
+        "category": "Energy",
+        "date": "Dec 19, 2025",
+        "image": "https://images.unsplash.com/photo-1584277261846-c6a1672ed979?q=80&w=2070",
+        "url": "articles/battery-arms-race.html",
+        "summary": "Stato solido, sodio-ionico o qualcos’altro?",
+        "tags": ["scroll"]
+    },
+    {
+        "id": "007",
+        "title": "La rinascita dei chip cinesi",
+        "category": "Semiconductors",
+        "date": "Dec 17, 2025",
+        "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070",
+        "url": "articles/china-chips.html",
+        "summary": "Come le fabbriche nazionali stanno aggirando le sanzioni.",
+        "tags": ["analysis"]
+    },
+    {
+        "id": "008",
+        "title": "Le navi autonome salpano",
+        "category": "Logistics",
+        "date": "Dec 16, 2025",
+        "image": "https://images.unsplash.com/photo-1504609813442-a8924e83f76e?q=80&w=2070",
+        "url": "articles/autonomous-ships.html",
+        "summary": "L’IA prende il timone del trasporto marittimo globale.",
+        "tags": ["scroll"]
+    },
+    {
+        "id": "009",
+        "title": "I ricavi di OpenAI superano le previsioni",
+        "category": "Markets",
+        "isTicker": true,
+        "tickerValue": "+1.8%",
+        "tickerColor": "#34C759"
+    },
+    {
+        "id": "010",
+        "title": "Guarda: il futuro dei dispositivi indossabili",
+        "category": "Video",
+        "date": "Dec 15, 2025",
+        "videoUrl": "videos/future-wearables.mp4",
+        "thumbnail": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=2070",
+        "duration": "06:42",
+        "tags": ["video", "featured"]
+    },
+    {
+        "id": "011",
+        "title": "Podcast: la bolla dell’IA?",
+        "category": "Podcast",
+        "date": "Dec 14, 2025",
+        "audioUrl": "podcasts/ai-bubble.mp3",
+        "duration": "28:15",
+        "summary": "Investitori, hype e numeri concreti.",
+        "tags": ["audio"]
+    },
+    {
+        "id": "012",
+        "title": "Photo essay: data center su scala globale",
+        "category": "Gallery",
+        "date": "Dec 13, 2025",
+        "images": [
+            "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=2070",
+            "https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=2070",
+            "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2070"
+        ],
+        "url": "articles/data-centers-gallery.html",
+        "tags": ["gallery"]
+    },
+    {
+        "id": "013",
+        "title": "Briefing settimanale: cosa conta ora",
+        "category": "Newsletter",
+        "date": "Dec 22, 2025",
+        "url": "newsletter/weekly-briefing.html",
+        "summary": "Cinque storie da non perdere questa settimana.",
+        "tags": ["newsletter"]
+    },
+    {
+        "id": "014",
+        "title": "Rapporto sui trend tecnologici 2025",
+        "category": "Research",
+        "date": "Dec 10, 2025",
+        "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070",
+        "url": "reports/tech-trends-2025.html",
+        "summary": "I segnali che stanno plasmando il prossimo decennio.",
+        "tags": ["report", "featured"]
+    },
+    
+
+
+
+
+
+
+
+
+
+
+    {
+        "id": "b1",
+        "location": "bento",
+        "title": "L’orizzonte rosso: la timeline finale per la prima missione umana su Marte",
+        "category": "Space Exploration",
+        "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072",
+        "url": "articles/mars-mission.html",
+        "gridClass": "col-span-8 row-span-2",
+        "cardStyle": "dark-card"
+    },
+    {
+        "id": "b2",
+        "location": "bento",
+        "type": "opinion",
+        "title": "Perché il metaverso ha fallito — e perché lo spatial computing avrà successo",
+        "category": "Editor's Opinion",
+        "author": "Sarah Jenkins",
+        "authorRole": "Senior Tech Editor",
+        "url": "articles/opinion-spatial.html",
+        "gridClass": "col-span-4 row-span-2",
+        "cardStyle": "light-card",
+        "customBg": "#f5f5f7"
+    },
+    {
+        "id": "b3",
+        "location": "bento",
+        "title": "L’inverno crypto è finito",
+        "category": "Finance",
+        "summary": "Analisi dei mercati decentralizzati nel Q4 2025.",
+        "url": "articles/crypto.html",
+        "gridClass": "col-span-4",
+        "cardStyle": "light-card"
+    },
+    {
+        "id": "b4",
+        "location": "bento",
+        "title": "Il movimento del caffè lento",
+        "category": "Culture",
+        "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2070",
+        "url": "articles/coffee.html",
+        "gridClass": "col-span-4",
+        "cardStyle": "dark-card"
+    },
+    {
+        "id": "b5",
+        "location": "bento",
+        "title": "Atlas si evolve",
+        "category": "Robotics",
+        "summary": "Boston Dynamics rivela movimenti umanoidi fluidi.",
+        "url": "articles/robotics.html",
+        "gridClass": "col-span-4",
+        "cardStyle": "light-card"
+    },
+    {
+        "id": "b6",
+        "location": "bento",
+        "type": "video",
+        "title": "Dentro la più grande fabbrica di IA al mondo",
+        "category": "Artificial Intelligence",
+        "thumbnail": "https://images.unsplash.com/photo-1555255707-c07966088b7b?q=80&w=2070",
+        "duration": "08:21",
+        "url": "videos/ai-factory.html",
+        "gridClass": "col-span-8",
+        "cardStyle": "dark-card",
+        "badge": "Watch"
+    },
+    {
+        "id": "b7",
+        "location": "bento",
+        "type": "data",
+        "title": "L’adozione globale dei veicoli elettrici raggiunge il 38%",
+        "category": "Energy & Mobility",
+        "statValue": "38%",
+        "statLabel": "of new cars sold worldwide",
+        "url": "articles/ev-adoption.html",
+        "gridClass": "col-span-4",
+        "cardStyle": "light-card",
+        "highlightColor": "#34C759"
+    },
+    {
+        "id": "b8",
+        "location": "bento",
+        "type": "longform",
+        "title": "L’internet invisibile sotto gli oceani",
+        "category": "Infrastructure",
+        "summary": "Cavi sottomarini, geopolitica e la fragilità del web.",
+        "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2070",
+        "url": "articles/subsea-cables.html",
+        "gridClass": "col-span-8 row-span-2",
+        "cardStyle": "dark-card",
+        "badge": "Long Read"
+    },
+    {
+        "id": "b9",
+        "location": "bento",
+        "type": "report",
+        "title": "Stato dell’IA 2025",
+        "category": "Research",
+        "summary": "Capacità, limiti e la strada da percorrere.",
+        "url": "reports/state-of-ai-2025.html",
+        "gridClass": "col-span-4",
+        "cardStyle": "light-card",
+        "badge": "Report"
+    },
+    {
+        "id": "b10",
+        "location": "bento",
+        "type": "breaking",
+        "title": "La NASA conferma una base lunare permanente",
+        "category": "Breaking News",
+        "url": "articles/lunar-base.html",
+        "gridClass": "col-span-4",
+        "cardStyle": "alert-card",
+        "accentColor": "#FF3B30"
+    }
+]

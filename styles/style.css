@@ -1,0 +1,919 @@
+/* --- 1. SYSTEM & VARIABLES --- */
+:root {
+    /* Palette - Cold, High-Contrast, Editorial */
+    --bg-body: #F5F5F7; /* Slightly darker than pure white for depth */
+    --bg-card: #FFFFFF;
+    --bg-glass: rgba(255, 255, 255, 0.75);
+    --bg-glass-dark: rgba(20, 20, 20, 0.6);
+    
+    --text-main: #111111;
+    --text-secondary: #6e6e73; /* Apple's gray */
+    --text-tertiary: #86868b;
+    
+    --accent: #0071E3;
+    --accent-hover: #0077ED;
+    
+    /* Borders & Separators */
+    --border-light: rgba(0, 0, 0, 0.08);
+    --border-glass: rgba(255, 255, 255, 0.5);
+    
+    /* Spacing System */
+    --container-max: 1280px; /* Slightly wider for modern screens */
+    --header-height: 64px;
+    --ticker-height: 44px;
+    
+    /* Physics & Feel */
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-pill: 999px;
+    
+    /* Shadows - Layered for depth */
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+    --shadow-md: 0 8px 24px rgba(0,0,0,0.06);
+    --shadow-lg: 0 20px 40px rgba(0,0,0,0.08);
+    --shadow-glass: inset 0 0 0 1px rgba(255,255,255,0.2), 0 8px 30px rgba(0,0,0,0.04);
+    
+    /* Animations */
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Texture Overlay for "Paper" Feel */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: multiply;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+a { 
+    text-decoration: none; 
+    color: inherit; 
+    transition: color 0.2s ease, opacity 0.2s ease; 
+    cursor: pointer;
+}
+
+/* Image Handling - Slow Zoom on Hover containers */
+img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    display: block; 
+    transition: transform 1.2s var(--ease-out-expo); /* Cinematic slow zoom */
+}
+
+/* --- TYPOGRAPHY UPGRADES --- */
+h1, h2, h3, h4 { 
+    color: var(--text-main); 
+    letter-spacing: -0.02em; 
+    line-height: 1.1; 
+    text-wrap: balance; /* Modern CSS to prevent orphans */
+}
+
+h1 { 
+    font-family: 'Playfair Display', serif; 
+    font-weight: 700; 
+    font-size: clamp(3rem, 6vw, 5.5rem); 
+    letter-spacing: -0.04em;
+    margin-bottom: 24px;
+}
+
+h2 { 
+    font-family: 'Inter', sans-serif; 
+    font-weight: 600; 
+    font-size: clamp(2rem, 4vw, 3rem); 
+    letter-spacing: -0.03em;
+}
+
+h3 { 
+    font-family: 'Playfair Display', serif; 
+    font-weight: 600; 
+    font-size: clamp(1.5rem, 2.5vw, 2.2rem); 
+}
+
+p { 
+    color: var(--text-secondary); 
+    font-size: 1.05rem; 
+    font-weight: 400; 
+}
+
+.eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+    display: inline-block;
+}
+
+.container { 
+    max-width: var(--container-max); 
+    margin: 0 auto; 
+    padding: 0 32px; /* Increased padding */
+}
+
+/* --- 2. NAVIGATION (Frosted Glass) --- */
+.navbar {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    height: var(--header-height);
+    background: var(--bg-glass);
+    backdrop-filter: saturate(180%) blur(24px);
+    -webkit-backdrop-filter: saturate(180%) blur(24px);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.nav-inner { width: 100%; display: flex; justify-content: space-between; align-items: center; }
+
+
+
+
+/* --- BRAND LOGO --- */
+.brand {
+    /* Layout: Flex ensures perfect alignment of the 3 pieces */
+    display: inline-flex;
+    align-items: baseline; 
+    
+    /* Typography */
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 800; /* Extra bold for the "Two"s */
+    letter-spacing: -0.05em; /* Tight, logo-like tracking */
+    color: var(--text-main);
+    
+    /* Positioning & Feel */
+    position: relative;
+    z-index: 1002;
+    text-decoration: none;
+    user-select: none; /* Prevents text selection, acts like an image */
+    cursor: pointer;
+}
+
+/* The Middle "Twenty" */
+.brand .mid { 
+    font-weight: 400; 
+    font-style: italic; 
+    color: var(--text-secondary); /* Use color variable instead of opacity for cleaner rendering */
+    margin: 0 -2px; /* Negative margin pulls words together for custom look */
+    
+    /* Animation */
+    transition: color 0.3s ease, transform 0.4s var(--ease-out-expo);
+}
+
+/* The Accent Dot */
+.brand .dot { 
+    color: var(--accent); 
+    font-size: 2.2rem; /* Slightly larger */
+    line-height: 0; 
+    
+    /* Optical Adjustments */
+    font-family: 'Inter', sans-serif; /* Sans-serif dots are usually perfectly round */
+    transform: translateY(4px); /* Pushes dot down to sit nicely */
+    margin-left: -1px;
+    
+    /* Animation */
+    transition: transform 0.4s var(--ease-out-expo); 
+}
+
+/* --- HOVER EFFECTS --- */
+
+/* 1. Darken the middle word */
+.brand:hover .mid {
+    color: var(--text-main);
+    transform: translateX(2px); /* Gives the logo 'breathing room' */
+}
+
+/* 2. Pop the dot */
+.brand:hover .dot {
+    transform: translateY(4px) scale(1.2); /* Pulse effect */
+}
+
+
+
+
+.nav-links { display: flex; gap: 40px; align-items: center; }
+.nav-links a { 
+    font-size: 0.9rem; 
+    font-weight: 500; 
+    color: var(--text-secondary); 
+    position: relative;
+}
+.nav-links a:not(.nav-btn)::after {
+    content: ''; position: absolute; bottom: -4px; left: 0; width: 0%; height: 1px;
+    background: var(--text-main); transition: width 0.3s var(--ease-out-expo);
+}
+.nav-links a:not(.nav-btn):hover { color: var(--text-main); }
+.nav-links a:not(.nav-btn):hover::after { width: 100%; }
+
+.nav-btn {
+    background: var(--text-main);
+    color: white !important;
+    padding: 10px 22px;
+    font-size: 0.85rem !important;
+    border-radius: var(--radius-pill);
+    transition: all 0.3s var(--ease-out-expo);
+}
+.nav-btn:hover { 
+    background: var(--accent); 
+    transform: translateY(-1px); 
+    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+}
+
+/* Mobile Toggle */
+.mobile-toggle { display: none; cursor: pointer; z-index: 1002; width: 30px; height: 20px; position: relative; }
+.burger-line { 
+    width: 100%; height: 2px; background: var(--text-main); 
+    position: absolute; left: 0; transition: 0.3s var(--ease-out-expo); 
+}
+.burger-line:first-child { top: 0; }
+.burger-line:last-child { bottom: 0; }
+/* Menu Open State handled via JS class on body/wrapper ideally, but generic logic here */
+
+.mobile-menu {
+    position: fixed;
+    inset: 0;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(15px);
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s var(--ease-out-expo);
+}
+.mobile-menu.active { opacity: 1; pointer-events: all; transform: translateY(0); }
+.mobile-menu a { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 600; color: var(--text-main); }
+
+
+
+
+
+
+
+
+/* --- TICKER CONTAINER --- */
+.ticker-wrap {
+    margin-top: var(--header-height);
+    height: 52px; /* Slightly taller for elegance */
+    background: #000000;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #222; /* Subtle separation */
+    z-index: 10;
+}
+
+/* Gradient Masks */
+.fade-mask {
+    position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2; pointer-events: none;
+}
+.fade-mask.left { left: 0; background: linear-gradient(to right, #000, transparent); }
+.fade-mask.right { right: 0; background: linear-gradient(to left, #000, transparent); }
+
+/* --- TRACK ANIMATION --- */
+.ticker-track {
+    display: flex;
+    gap: 0; /* Gap handled by padding in items */
+    /* Calculation: We move -50% because content is duplicated exactly once */
+    animation: scroll 40s linear infinite;
+    will-change: transform; /* Hardware acceleration */
+}
+
+.ticker-wrap:hover .ticker-track {
+    animation-play-state: paused;
+}
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* --- INDIVIDUAL ITEMS --- */
+.ticker-item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 40px; /* Generous spacing */
+    text-decoration: none;
+    height: 52px;
+    border-right: 1px solid #222; /* Divider lines like a terminal */
+    transition: background 0.2s ease, opacity 0.3s ease;
+    cursor: pointer;
+}
+
+/* Hover: Highlight current, dim others */
+.ticker-wrap:hover .ticker-item { opacity: 0.3; } /* Dim all */
+.ticker-wrap:hover .ticker-item:hover { opacity: 1; background: #111; } /* Highlight active */
+
+/* --- TYPOGRAPHY & TAGS --- */
+.t-text {
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: #f5f5f7;
+    white-space: nowrap;
+}
+
+.t-tag {
+    font-family: 'SF Mono', 'Menlo', monospace; /* Tech feel */
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid #333; /* Outline style */
+    color: #888;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Live Tag Styling */
+.t-tag.live {
+    border-color: rgba(255, 59, 48, 0.4);
+    color: #FF3B30; /* Apple Red */
+    background: rgba(255, 59, 48, 0.1);
+}
+
+.pulse-dot {
+    width: 6px; height: 6px;
+    background: #FF3B30;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+/* Meta Data (Time/Stock %) */
+.t-meta {
+    font-family: 'SF Mono', monospace;
+    font-size: 0.7rem;
+    color: #666;
+    margin-left: 12px;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* Mobile Adjustment */
+@media (max-width: 768px) {
+    .ticker-item { padding: 0 24px; border-right: none; }
+    .fade-mask { width: 60px; }
+    .t-meta { display: none; } /* Hide metadata on mobile to save space */
+}
+
+
+
+
+
+
+
+
+
+
+/* --- 4. HERO SECTION --- */
+.hero {
+    padding: 80px 0 100px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    min-height: 85vh; /* Almost full viewport */
+}
+
+.hero-text { position: relative; z-index: 2; padding-right: 20px; }
+.hero-text p { 
+    font-size: 1.35rem; margin-bottom: 48px; 
+    line-height: 1.6; max-width: 90%; 
+    color: var(--text-secondary);
+}
+
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--text-main);
+    color: white;
+    padding: 16px 32px;
+    border-radius: var(--radius-pill);
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.3s var(--ease-out-expo);
+}
+.btn-primary svg { transition: transform 0.3s var(--ease-out-expo); }
+.btn-primary:hover { 
+    transform: translateY(-4px); 
+    box-shadow: 0 14px 28px rgba(0,0,0,0.15); 
+    background: #000;
+}
+.btn-primary:hover svg { transform: translateX(4px); }
+
+.hero-visual {
+    position: relative;
+    height: 650px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    /* Fancy border logic via shadow */
+    box-shadow: 
+        0 20px 40px rgba(0,0,0,0.1),
+        inset 0 0 0 1px rgba(255,255,255,0.1); 
+}
+.hero-visual img { width: 100%; height: 100%; object-fit: cover; }
+.hero-visual:hover img { transform: scale(1.03); }
+
+/* --- 5. HORIZONTAL SCROLL (Snap) --- */
+.scroll-section { padding: 40px 0 100px; }
+.section-header { 
+    margin-bottom: 40px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: flex-end; 
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 20px;
+}
+
+.scroll-track {
+    display: flex;
+    gap: 32px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 20px 32px 60px; /* Bottom padding for shadows */
+    margin: 0 -32px;
+    -webkit-overflow-scrolling: touch;
+}
+/* Hide scrollbar visually but allow scroll */
+.scroll-track::-webkit-scrollbar { height: 6px; }
+.scroll-track::-webkit-scrollbar-track { background: transparent; }
+.scroll-track::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 10px; }
+
+.brief-card {
+    flex: 0 0 340px;
+    height: 480px;
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    scroll-snap-align: center;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.4s var(--ease-out-expo);
+    border: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.brief-card:hover { 
+    transform: translateY(-12px); 
+    box-shadow: var(--shadow-lg); 
+}
+.brief-card .img-box { height: 260px; overflow: hidden; position: relative; }
+.brief-card:hover .img-box img { transform: scale(1.08); }
+
+.brief-card .content { 
+    padding: 28px; 
+    flex-grow: 1; 
+    display: flex; 
+    flex-direction: column;
+    background: white;
+    z-index: 2;
+}
+.brief-card h4 { 
+    font-family: 'Playfair Display', serif; 
+    font-size: 1.5rem; 
+    margin-bottom: 12px; 
+}
+
+/* --- 6. BENTO GRID (Advanced Layout) --- */
+.bento-grid {
+    display: grid;
+    /* 12 column system */
+    grid-template-columns: repeat(12, 1fr);
+    /* Auto rows with minimum height */
+    grid-auto-rows: 380px; 
+    gap: 24px;
+    margin-bottom: 120px;
+}
+
+.b-card {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: all 0.4s var(--ease-out-expo);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+.b-card:hover { 
+    transform: scale(1.015); 
+    box-shadow: var(--shadow-md); 
+    z-index: 5; 
+}
+.b-card:hover img { transform: scale(1.05); }
+
+/* Grid Spans */
+.col-span-8 { grid-column: span 8; }
+.col-span-6 { grid-column: span 6; }
+.col-span-4 { grid-column: span 4; }
+.row-span-2 { grid-row: span 2; }
+
+/* Dark Card Styling */
+.dark-card { background: #000; color: white; border: none; }
+.dark-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+.dark-card .content {
+    position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px;
+    z-index: 2;
+}
+/* Light Card Styling */
+.light-card { 
+    background: #FFFFFF; 
+    display: flex; 
+    flex-direction: column; 
+}
+.light-card .content { 
+    padding: 40px; 
+    height: 100%; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+}
+
+/* Specific styling for the Quote/Opinion Card */
+.light-card[style*="background: #f5f5f7"] {
+    background-color: #F2F2F7 !important; /* Apple system gray */
+}
+
+
+
+
+
+
+
+
+
+
+/* --- SECTION CONTAINER --- */
+.opinion-section {
+    background-color: #F5F5F7; /* Apple's "System Gray 6" - Warm Gray */
+    padding: 120px 0;
+    position: relative;
+    border-top: 1px solid rgba(0,0,0,0.05); /* Subtle separation */
+}
+
+/* Header Alignment */
+.section-header-center {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 64px;
+}
+.section-header-center h3 {
+    font-size: 2.5rem;
+    margin-top: 12px;
+}
+
+/* --- THE GRID --- */
+.opinion-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+/* --- THE CARD --- */
+.op-card {
+    background: #FFFFFF;
+    border-radius: 24px; /* Soft Apple corners */
+    padding: 40px 32px;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Ensures equal height */
+    
+    /* Subtle border + shadow for depth */
+    border: 1px solid rgba(0,0,0,0.04);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02), 0 12px 24px rgba(0,0,0,0.02);
+    
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover Effect: Lift + Border Glow */
+.op-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    border-color: rgba(0, 113, 227, 0.3); /* Subtle blue tint on border */
+}
+
+/* --- TYPOGRAPHY --- */
+.quote-icon {
+    color: var(--accent);
+    opacity: 0.2;
+    margin-bottom: 24px;
+    width: 32px; height: 32px;
+}
+
+.op-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    line-height: 1.5;
+    color: var(--text-main);
+    margin-bottom: 40px;
+    font-weight: 500;
+}
+
+/* Highlight word logic */
+.op-quote .highlight {
+    background: linear-gradient(120deg, rgba(0,113,227,0.1) 0%, rgba(0,113,227,0.05) 100%);
+    color: var(--accent);
+    padding: 0 4px;
+    border-radius: 4px;
+    font-style: italic;
+}
+
+/* --- AUTHOR BLOCK (Bottom) --- */
+.op-footer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px solid #F5F5F7; /* Divider inside card */
+}
+
+.author-face {
+    width: 48px; height: 48px; /* Smaller, sharper */
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 2px solid white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+/* Subtle zoom on hover */
+.op-card:hover .author-face {
+    transform: scale(1.1);
+    border-color: var(--accent);
+}
+
+.author-meta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.3;
+}
+
+.author-meta strong {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-main);
+}
+
+.author-meta span {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+    font-weight: 500;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1024px) {
+    .opinion-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+    .opinion-grid { grid-template-columns: 1fr; gap: 24px; }
+    .op-card { padding: 32px 24px; }
+    .section-header-center h3 { font-size: 2rem; }
+}
+
+
+
+
+
+
+
+
+/* --- 8. FOOTER --- */
+footer { 
+    background: #050505; 
+    color: #888; 
+    padding: 100px 0 40px; 
+    font-size: 0.95rem; 
+}
+.footer-grid { 
+    display: grid; 
+    grid-template-columns: 1.5fr 1fr 1fr 1fr; 
+    gap: 60px; 
+    padding-bottom: 80px; 
+    border-bottom: 1px solid #222; 
+    margin-bottom: 40px;
+}
+
+/* --- FOOTER BRANDING UPGRADE --- */
+
+.footer-brand-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    max-width: 320px;
+}
+
+/* 1. The Logo Title */
+.f-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: -0.04em;
+    text-decoration: none;
+    line-height: 1;
+    user-select: none;
+}
+
+.f-brand .mid {
+    font-weight: 400;
+    font-style: italic;
+    color: #666; /* Muted gray for the middle word */
+    margin: 0 -2px;
+    transition: color 0.3s ease;
+}
+
+.f-brand .dot {
+    color: var(--accent); /* Your blue accent */
+    font-family: 'Inter', sans-serif;
+    font-size: 2.5rem;
+    line-height: 0;
+    margin-left: -2px;
+}
+
+/* Hover Effect: Light up the middle word */
+.f-brand:hover .mid {
+    color: #fff;
+}
+
+/* 2. The Mission Paragraph */
+.f-mission {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #999; /* Much more readable than #555 */
+    font-weight: 400;
+    margin: 0;
+}
+
+/* 3. The Tech Meta Data (Bottom Row) */
+.f-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+    font-family: 'SF Mono', 'Menlo', monospace; /* Tech font */
+    font-size: 0.7rem;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-top: 1px solid #222;
+    padding-top: 16px;
+    width: 100%;
+}
+
+.f-meta .tag {
+    color: #777;
+}
+
+.f-meta .sep {
+    color: #333;
+}
+
+/* Optional: "Systems Normal" blinking indicator */
+.live-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto; /* Pushes it to the right */
+    color: #34C759; /* Apple Green */
+    opacity: 0.8;
+}
+
+.live-indicator .blink {
+    width: 6px; height: 6px;
+    background-color: #34C759;
+    border-radius: 50%;
+    animation: footerPulse 3s infinite;
+}
+
+@keyframes footerPulse {
+    0% { opacity: 0.3; }
+    50% { opacity: 1; box-shadow: 0 0 8px rgba(52, 199, 89, 0.4); }
+    100% { opacity: 0.3; }
+}
+
+
+.footer-col h4 { 
+    color: white; 
+    margin-bottom: 24px; 
+    font-size: 0.75rem; 
+    font-weight: 600;
+    text-transform: uppercase; 
+    letter-spacing: 0.1em; 
+}
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 16px; }
+.footer-col a { color: #888; transition: color 0.2s; }
+.footer-col a:hover { color: white; text-decoration: none; }
+
+
+/* --- 9. BREAKPOINTS (Responsive) --- */
+
+/* Tablet & Smaller Laptops */
+@media (max-width: 1024px) {
+    .container { padding: 0 24px; }
+    
+    .hero { 
+        grid-template-columns: 1fr; 
+        text-align: center; 
+        gap: 50px; 
+        padding-top: 60px;
+        min-height: auto;
+    }
+    .hero-text { padding-right: 0; margin-bottom: 20px; }
+    .hero-text p { margin: 0 auto 30px; }
+    .hero-visual { height: 500px; width: 100%; }
+    
+    .bento-grid { 
+        /* Switch to 2 columns logic (12 / 6 = 2 items per row) */
+        grid-template-columns: repeat(2, 1fr); 
+    }
+    .col-span-8 { grid-column: span 2; }
+    .col-span-6 { grid-column: span 1; }
+    .col-span-4 { grid-column: span 1; }
+    
+    .opinion-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    h1 { font-size: 3rem; }
+    
+    .nav-links { display: none; }
+    .mobile-toggle { display: block; }
+    
+    .scroll-track { 
+        padding: 10px 24px 40px; 
+        margin: 0 -24px; 
+        gap: 16px; 
+    }
+    .brief-card { flex: 0 0 280px; height: 400px; }
+    
+    .bento-grid { 
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+    .b-card { min-height: 350px; width: 100%; }
+    .row-span-2 { min-height: 450px; }
+    
+    .opinion-grid { grid-template-columns: 1fr; gap: 40px; }
+    
+    .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+    .footer-col { border-bottom: 1px solid #222; padding-bottom: 20px; }
+    .footer-col:last-child { border-bottom: none; }
+}
