@@ -356,70 +356,52 @@ function copyToClipboard() {
 
 
 
-document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.querySelector('.navbar');
     const mobileToggle = document.querySelector('.mobile-toggle');
     const mobileMenu = document.querySelector('.mobile-menu');
     const body = document.body;
-
-    let lastScrollY = window.scrollY;
+    
+    // Performance optimization: prevent scroll event from firing too often
     let ticking = false;
 
-    // --- 1. SMART SCROLL LOGIC ---
-    function onScroll() {
-        const currentScrollY = window.scrollY;
-        
-        // Logic:
-        // 1. If we are at the very top (< 50px), remove scrolled class (Full Bar).
-        // 2. If we scroll DOWN, add scrolled class (Pill).
-        // 3. If we scroll UP significantly, show full bar again (Optional, removed for strict pill, keeping strict pill for now based on your design).
-        
-        if (currentScrollY > 50) {
-            if (!navbar.classList.contains('scrolled')) {
-                navbar.classList.add('scrolled');
-            }
-        } else {
-            if (navbar.classList.contains('scrolled')) {
-                navbar.classList.remove('scrolled');
-            }
-        }
-
-        lastScrollY = currentScrollY;
-        ticking = false;
-    }
-
+    // 1. SCROLL LOGIC (Optimized)
     window.addEventListener('scroll', () => {
         if (!ticking) {
-            window.requestAnimationFrame(onScroll);
+            window.requestAnimationFrame(() => {
+                // Threshold: 20px is smoother than 50px for immediate feedback
+                if (window.scrollY > 20) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                ticking = false;
+            });
             ticking = true;
         }
     });
 
-    // --- 2. MOBILE MENU LOGIC ---
+    // 2. MOBILE MENU LOGIC
     function toggleMenu() {
         const isActive = mobileToggle.classList.contains('active');
-        
+
+        // Toggle Visual State
         mobileToggle.classList.toggle('active');
         mobileMenu.classList.toggle('active');
-
+        
+        // Accessibility
+        mobileToggle.setAttribute('aria-expanded', !isActive);
+        
+        // Scroll Lock (prevent background scrolling)
         if (!isActive) {
-            // Opening menu
-            body.style.overflow = 'hidden'; // Lock scroll
-            // If navbar is scrolled (pill), revert it visually for the menu
-            navbar.style.zIndex = '1050'; // Move nav behind menu content if needed, but we used z-1100 logic previously
+            body.style.overflow = 'hidden';
         } else {
-            // Closing menu
             body.style.overflow = '';
         }
     }
-
-    // Bind Click
-    mobileToggle.addEventListener('click', toggleMenu);
-
-    // Close on Link Click
-    mobileMenu.querySelectorAll('a').forEach(link => {
+    
+    // Auto-close menu when clicking links
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
         link.addEventListener('click', () => {
-            if (mobileMenu.classList.contains('active')) toggleMenu();
+            if(mobileMenu.classList.contains('active')) toggleMenu();
         });
     });
-});
