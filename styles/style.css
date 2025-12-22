@@ -131,11 +131,9 @@ p {
     padding: 0 32px; /* Increased padding */
 }
 
-
-
-
 /* --- 2. NAVIGATION (Frosted Glass) --- */
 .navbar {
+    position: fixed;
     top: 0; left: 0; width: 100%;
     height: var(--header-height);
     background: var(--bg-glass);
@@ -273,6 +271,14 @@ p {
 .mobile-menu.active { opacity: 1; pointer-events: all; transform: translateY(0); }
 .mobile-menu a { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 600; color: var(--text-main); }
 
+/*mobile version display*/
+@media (max-width: 768px) {
+    .navbar {
+        /* 1. La chiave è cambiare da 'fixed' a 'absolute' */
+        position: absolute;
+    }
+
+}
 
 
 
