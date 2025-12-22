@@ -151,134 +151,459 @@ p {
 
 
 
-/* --- BRAND LOGO --- */
-.brand {
-    /* Layout: Flex ensures perfect alignment of the 3 pieces */
-    display: inline-flex;
-    align-items: baseline; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================
+   1. VARIABLES & RESET
+   ========================================= */
+:root {
+    /* Dimensions */
+    --header-height: 70px;
+    --header-total-height: calc(var(--header-height) + env(safe-area-inset-top));
     
-    /* Typography */
+    /* Colors */
+    --bg-glass: rgba(255, 255, 255, 0.8);
+    --bg-pill: rgba(255, 255, 255, 0.95);
+    --text-main: #1d1d1f;
+    --text-secondary: #86868b;
+    --accent: #0071e3;
+    --accent-hover: #0077ED;
+    
+    /* Physics */
+    --radius-pill: 100px;
+    --ease-apple: cubic-bezier(0.25, 1, 0.5, 1); /* Smooth snap */
+}
+
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+}
+
+body { 
+    font-family: 'Inter', sans-serif; 
+    background: #f5f5f7; 
+    color: var(--text-main); 
+}
+
+/* =========================================
+   2. NAVBAR STRUCTURE (Desktop Default)
+   ========================================= */
+.navbar {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    height: var(--header-total-height);
+    padding-top: env(safe-area-inset-top);
+    
+    /* Glass Effect */
+    background: var(--bg-glass);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    
+    /* MODIFICA FONDAMENTALE: 1100 è superiore al menu (1050) */
+    z-index: 1100; 
+    transition: all 0.5s var(--ease-apple);
+}
+
+.nav-inner { 
+    width: 100%; max-width: 1200px; margin: 0 auto;
+    padding: 0 30px; height: 100%;
+    display: flex; align-items: center; justify-content: space-between;
+    position: relative;
+}
+
+/* =========================================
+   3. BRAND / LOGO
+   ========================================= */
+.brand {
+    text-decoration: none;
+    position: absolute;
+    left: 30px; top: 50%;
+    transform: translateY(-50%);
+    z-index: 1005;
+    
     font-family: 'Playfair Display', serif;
     font-size: 1.6rem;
-    font-weight: 800; /* Extra bold for the "Two"s */
-    letter-spacing: -0.05em; /* Tight, logo-like tracking */
+    font-weight: 800;
     color: var(--text-main);
+    letter-spacing: -0.03em;
     
-    /* Positioning & Feel */
-    position: relative;
-    z-index: 1002;
-    text-decoration: none;
-    user-select: none; /* Prevents text selection, acts like an image */
-    cursor: pointer;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    
+    transition: all 0.6s var(--ease-apple);
 }
 
-/* The Middle "Twenty" */
 .brand .mid { 
-    font-weight: 400; 
-    font-style: italic; 
-    color: var(--text-secondary); /* Use color variable instead of opacity for cleaner rendering */
-    margin: 0 -2px; /* Negative margin pulls words together for custom look */
-    
-    /* Animation */
-    transition: color 0.3s ease, transform 0.4s var(--ease-out-expo);
+    font-weight: 400; font-style: italic; color: var(--text-secondary);
+    transition: color 0.3s ease;
 }
 
-/* The Accent Dot */
 .brand .dot { 
-    color: var(--accent); 
-    font-size: 2.2rem; /* Slightly larger */
-    line-height: 0; 
-    
-    /* Optical Adjustments */
-    font-family: 'Inter', sans-serif; /* Sans-serif dots are usually perfectly round */
-    transform: translateY(4px); /* Pushes dot down to sit nicely */
-    margin-left: -1px;
-    
-    /* Animation */
-    transition: transform 0.4s var(--ease-out-expo); 
+    color: var(--accent); font-size: 2rem; line-height: 0;
 }
 
-/* --- HOVER EFFECTS --- */
-
-/* 1. Darken the middle word */
-.brand:hover .mid {
-    color: var(--text-main);
-    transform: translateX(2px); /* Gives the logo 'breathing room' */
+/* Hover Effect */
+.navbar:not(.scrolled) .brand:hover .mid { 
+    color: var(--text-main); 
 }
 
-/* 2. Pop the dot */
-.brand:hover .dot {
-    transform: translateY(4px) scale(1.2); /* Pulse effect */
+/* =========================================
+   4. DESKTOP NAVIGATION LINKS
+   ========================================= */
+.nav-links { 
+    display: flex; gap: 32px; align-items: center; margin-left: auto;
+    transition: all 0.4s var(--ease-apple);
 }
 
-
-
-
-.nav-links { display: flex; gap: 40px; align-items: center; }
 .nav-links a { 
-    font-size: 0.9rem; 
-    font-weight: 500; 
-    color: var(--text-secondary); 
-    position: relative;
+    font-size: 0.95rem; font-weight: 500; color: var(--text-secondary); 
+    text-decoration: none; position: relative; transition: color 0.2s ease;
 }
-.nav-links a:not(.nav-btn)::after {
-    content: ''; position: absolute; bottom: -4px; left: 0; width: 0%; height: 1px;
-    background: var(--text-main); transition: width 0.3s var(--ease-out-expo);
-}
-.nav-links a:not(.nav-btn):hover { color: var(--text-main); }
-.nav-links a:not(.nav-btn):hover::after { width: 100%; }
 
+.nav-links a:not(.nav-btn):hover { 
+    color: var(--text-main); 
+}
+
+/* CTA Button */
 .nav-btn {
-    background: var(--text-main);
-    color: white !important;
-    padding: 10px 22px;
-    font-size: 0.85rem !important;
-    border-radius: var(--radius-pill);
-    transition: all 0.3s var(--ease-out-expo);
+    background: var(--text-main); color: #fff !important;
+    padding: 10px 20px; border-radius: var(--radius-pill);
+    font-size: 0.9rem !important; 
+    transition: transform 0.2s ease, background 0.2s ease;
 }
+
 .nav-btn:hover { 
-    background: var(--accent); 
-    transform: translateY(-1px); 
-    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+    background: var(--accent); transform: scale(1.05); 
 }
 
-/* Mobile Toggle */
-.mobile-toggle { display: none; cursor: pointer; z-index: 1002; width: 30px; height: 20px; position: relative; }
-.burger-line { 
-    width: 100%; height: 2px; background: var(--text-main); 
-    position: absolute; left: 0; transition: 0.3s var(--ease-out-expo); 
+/* =========================================
+   5. SCROLLED STATE (Pill)
+   ========================================= */
+.navbar.scrolled {
+    background: transparent;
+    border-bottom-color: transparent;
+    backdrop-filter: none; -webkit-backdrop-filter: none;
+    pointer-events: none; /* Click passanti ai lati */
 }
-.burger-line:first-child { top: 0; }
-.burger-line:last-child { bottom: 0; }
-/* Menu Open State handled via JS class on body/wrapper ideally, but generic logic here */
 
+/* Brand becomes Pill */
+.navbar.scrolled .brand {
+    pointer-events: auto;
+    left: 50%; 
+    transform: translate(-50%, -50%) scale(0.9);
+    
+    background: var(--bg-pill);
+    padding: 12px 36px;
+    border-radius: var(--radius-pill);
+    backdrop-filter: saturate(180%) blur(20px);
+    
+    box-shadow: 
+        0 4px 6px -1px rgba(0,0,0,0.05),
+        0 10px 15px -3px rgba(0,0,0,0.08),
+        0 0 0 1px rgba(0,0,0,0.05) inset;
+}
+
+.navbar.scrolled .brand .mid { color: var(--text-main); }
+
+.navbar.scrolled .nav-links { 
+    opacity: 0; transform: translateY(-10px); pointer-events: none; 
+}
+
+/* =========================================
+   6. MOBILE MENU TOGGLE (Burger to X)
+   ========================================= */
+.mobile-toggle {
+    display: none; 
+    width: 44px; 
+    height: 44px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: transparent; 
+    border: none;
+    cursor: pointer;
+    position: relative;
+    /* Z-index locale alto, ma dipende dal padre .navbar */
+    z-index: 1200; 
+}
+
+.burger-line {
+    width: 24px; 
+    height: 2px; 
+    background: var(--text-main);
+    border-radius: 4px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 0.3s var(--ease-apple);
+}
+
+.burger-line:first-child { top: 14px; }
+.burger-line:last-child { bottom: 14px; }
+
+/* Animation to X */
+.mobile-toggle.active .burger-line:first-child {
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.mobile-toggle.active .burger-line:last-child {
+    bottom: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* =========================================
+   7. MOBILE MENU OVERLAY
+   ========================================= */
 .mobile-menu {
     position: fixed;
-    inset: 0;
-    background: rgba(255,255,255,0.98);
-    backdrop-filter: blur(15px);
-    z-index: 1001;
+    inset: 0; 
+    width: 100%;
+    height: 100vh;
+    
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    
+    /* MODIFICA: 1050 è inferiore alla navbar (1100), quindi la navbar sta sopra */
+    z-index: 1050; 
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 40px;
+    gap: 32px;
+    
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
-    transform: translateY(10px);
-    transition: opacity 0.4s ease, transform 0.4s var(--ease-out-expo);
+    transition: all 0.4s var(--ease-apple);
 }
-.mobile-menu.active { opacity: 1; pointer-events: all; transform: translateY(0); }
-.mobile-menu a { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 600; color: var(--text-main); }
 
-/*mobile version display*/
+.mobile-menu.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Links */
+.mobile-menu a {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 600;
+    color: var(--text-main);
+    text-decoration: none;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    
+    opacity: 0;
+    transform: translateY(40px);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.mobile-menu a:hover {
+    color: #000;
+    transform: scale(1.05) translateY(0);
+}
+
+/* Subscribe Button */
+.mobile-menu a:last-child {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 1.1rem !important;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-top: 24px;
+    padding: 16px 32px;
+    color: #fff !important;
+    background: var(--accent);
+    border-radius: var(--radius-pill);
+    box-shadow: 0 10px 20px rgba(0, 113, 227, 0.2);
+}
+
+.mobile-menu a:last-child:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 113, 227, 0.3);
+}
+
+/* Stagger Animation */
+.mobile-menu.active a {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s ease, transform 0.6s var(--ease-apple);
+}
+
+.mobile-menu.active a:nth-child(1) { transition-delay: 0.1s; }
+.mobile-menu.active a:nth-child(2) { transition-delay: 0.15s; }
+.mobile-menu.active a:nth-child(3) { transition-delay: 0.2s; }
+.mobile-menu.active a:nth-child(4) { transition-delay: 0.25s; }
+.mobile-menu.active a:nth-child(5) { transition-delay: 0.3s; }
+
+/* =========================================
+   8. MEDIA QUERIES
+   ========================================= */
 @media (max-width: 768px) {
-    .navbar {
-        /* 1. La chiave è cambiare da 'fixed' a 'absolute' */
-        position: absolute;
+    .mobile-toggle { display: flex; }
+    .nav-links { display: none; }
+}
+
+
+
+
+
+
+
+
+
+/* --- 6. MOBILE RESPONSIVE LOGIC --- */
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .mobile-toggle { display: block; margin-left: auto; }
+    
+    .brand { left: 20px; transition: none; } /* No movement on mobile */
+
+    /* Override Scrolled Logic for Mobile (Keep it a normal bar) */
+    .navbar.scrolled {
+        background: var(--bg-glass);
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        backdrop-filter: saturate(180%) blur(20px);
+        pointer-events: auto;
+    }
+    
+    .navbar.scrolled .brand {
+        left: 20px; top: 50%;
+        transform: translateY(-50%); /* Don't center it */
+        background: transparent;
+        padding: 0; box-shadow: none; border-radius: 0;
+    }
+}
+/* --- 6. MOBILE RESPONSIVE LOGIC (Aggiornato per Pillola Mobile) --- */
+/* --- 6. MOBILE RESPONSIVE LOGIC (ANIMATED) --- */
+@media (max-width: 768px) {
+    
+    /* Nascondi i link desktop */
+    .nav-links { display: none; }
+    
+    /* --- SETUP ELEMENTI BASE (Stato Iniziale) --- */
+    
+    /* 1. Il Logo Mobile */
+    .brand {
+        /* Posizione di partenza (Sinistra) */
+        left: 24px;
+        top: 50%;
+        transform: translateY(-50%) scale(1);
+        
+        /* Stile base */
+        font-size: 1.5rem;
+        background: transparent;
+        padding: 0;
+        box-shadow: none;
+        border-radius: var(--radius-pill); /* Prepariamo il radius per l'animazione */
+        
+        /* ABILITIAMO L'ANIMAZIONE FLUIDA */
+        transition: all 0.6s var(--ease-apple);
+    }
+    
+    /* 2. Il Burger Menu */
+    .mobile-toggle { 
+        display: flex; align-items: center; justify-content: center;
+        
+        position: absolute; 
+        right: 20px; top: 50%;
+        transform: translateY(-50%);
+        
+        /* Dimensioni base */
+        width: 40px; height: 40px;
+        background: transparent; /* Sfondo trasparente iniziale */
+        border-radius: 50%;
+        box-shadow: none;
+        
+        /* Animazione fluida anche per il bottone */
+        transition: all 0.5s var(--ease-apple);
     }
 
+    /* --- STATO SCROLLED (ANIMAZIONE VERSO PILLOLA) --- */
+    
+    /* A. La barra grande sparisce (fade out) */
+    .navbar.scrolled {
+        background: transparent;
+        border-bottom-color: transparent;
+        backdrop-filter: none; -webkit-backdrop-filter: none;
+        pointer-events: none; /* Click passanti */
+    }
+    
+    /* B. Il Logo scorre al centro e diventa Pillola */
+    /* B. Il Logo scorre al centro e diventa Pillola */
+    .navbar.scrolled .brand {
+        pointer-events: auto; /* Riattiva click */
+        
+        /* MOVIMENTO */
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.9);
+        
+        /* MORPHING STILE */
+        background: var(--bg-pill);
+        padding: 11px 28px;
+        backdrop-filter: saturate(180%) blur(20px);
+        
+        /* --- MODIFICA QUI: FORZIAMO I BORDI TONDI --- */
+        border-radius: 999px; /* Usa 999px per fare la pillola perfetta */
+        
+        /* Ombra delicata */
+        box-shadow: 
+            0 4px 12px -2px rgba(0,0,0,0.08),
+            0 0 0 1px rgba(0,0,0,0.04) inset;
+            
+        z-index: 1010;
+        white-space: nowrap;
+    }
+
+    /* C. Il Burger diventa un cerchio bianco */
+    .navbar.scrolled .mobile-toggle {
+        pointer-events: auto;
+        
+        background: var(--bg-pill); /* Sfondo bianco appare */
+        box-shadow: 
+            0 4px 12px -2px rgba(0,0,0,0.08),
+            0 0 0 1px rgba(0,0,0,0.04) inset;
+        
+        /* Piccolo aggiustamento posizione se necessario */
+        right: 18px; 
+    }
+    
+    /* Riduce leggermente le linee interne del burger quando è cerchiato */
+    .navbar.scrolled .burger-box {
+        transform: scale(0.85);
+        transition: transform 0.5s var(--ease-apple);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
