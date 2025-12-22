@@ -64,33 +64,17 @@
     <hr class="container" style="border: none; border-top: 1px solid rgba(0,0,0,0.1); margin-bottom: 60px;">
 
     <section class="container">
-        <div class="section-header" style="margin-bottom: 40px;">
-            <h2>Ultimi articoli di Bianca</h2>
+    <div class="section-header" style="margin-bottom: 40px;">
+        <h2>Ultimi articoli di Bianca</h2>
+    </div>
+
+    <div class="author-articles-grid" id="author-feed" data-author="Bianca Rossi">
+        <div class="loading-state" style="grid-column: span 3; text-align: center; color: #999;">
+            Caricamento articoli...
         </div>
-
-        <div class="author-articles-grid">
-            <a href="#" class="simple-article-card">
-                <img src="https://images.unsplash.com/photo-1555848962-6e79363ec58f?q=80&w=2000&auto=format&fit=crop" alt="Protesta Torino">
-                <span class="eyebrow" style="color: var(--accent);">Politica</span>
-                <h3>Torino sotto assedio: La caduta di Askatasuna e il futuro del dissenso</h3>
-                <p style="color: var(--text-secondary);">21 Dic 2025</p>
-            </a>
-
-             <a href="#" class="simple-article-card">
-                <img src="https://images.unsplash.com/photo-1611273426858-450d8e3c9f98?q=80&w=2070&auto=format&fit=crop" alt="Crisi Energetica">
-                <span class="eyebrow" style="color: var(--accent);">Mercati</span>
-                <h3>La scommessa energetica dell'Italia per il 2030</h3>
-                <p style="color: var(--text-secondary);">15 Nov 2025</p>
-            </a>
-
-             <a href="#" class="simple-article-card">
-                <img src="https://images.unsplash.com/photo-1516214104703-d870798883c5?q=80&w=2070&auto=format&fit=crop" alt="Venezia Clima">
-                <span class="eyebrow" style="color: var(--accent);">Clima</span>
-                <h3>Venezia e il MOSE: Cronaca di un salvataggio a metà</h3>
-                <p style="color: var(--text-secondary);">2 Ott 2025</p>
-            </a>
-        </div>
-    </section>
+    </div>
+    
+</section>
 
     <footer>
         <div class="container footer-grid">
@@ -149,5 +133,11 @@
     </footer>
     <script src="../script.js"></script>
 
+    <script>
+        // Se preferisci tenere la logica qui per ora, o spostala in un file esterno
+        document.addEventListener('DOMContentLoaded', () => {
+            loadArticlesByAuthor();
+        });
+    </script>
 </body>
 </html>

@@ -38,6 +38,10 @@
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
 }
+body {
+    background-color: var(--bg-body);
+
+}
 
 /* Texture Overlay for "Paper" Feel */
 body::before {
@@ -131,20 +135,7 @@ p {
     padding: 0 32px; /* Increased padding */
 }
 
-/* --- 2. NAVIGATION (Frosted Glass) --- */
-.navbar {
-    position: fixed;
-    top: 0; left: 0; width: 100%;
-    height: var(--header-height);
-    background: var(--bg-glass);
-    backdrop-filter: saturate(180%) blur(24px);
-    -webkit-backdrop-filter: saturate(180%) blur(24px);
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    transition: transform 0.3s ease;
-}
+
 
 .nav-inner { width: 100%; display: flex; justify-content: space-between; align-items: center; }
 
@@ -163,111 +154,82 @@ p {
 
 
 
-
 /* =========================================
-   1. VARIABLES & PHYSICS
+   1. CORE VARIABLES & RESET
    ========================================= */
 :root {
+    /* Dimensions */
     --header-height: 70px;
     --header-safe: calc(var(--header-height) + env(safe-area-inset-top));
     
+    /* Colors */
     --bg-glass: rgba(255, 255, 255, 0.85);
     --bg-pill: rgba(255, 255, 255, 0.98);
-    
     --text-main: #1d1d1f;
     --text-muted: #86868b;
     --accent: #0071e3;
     
-    /* The "Apple" Easing: Fast start, slow elegant landing */
-    --ease-editorial: cubic-bezier(0.19, 1, 0.22, 1);
+    /* Physics */
+    --ease-editorial: cubic-bezier(0.19, 1, 0.22, 1); /* Apple-style easing */
+    --radius-pill: 999px;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Inter', sans-serif; background: #f5f5f7; color: var(--text-main); overflow-x: hidden; }
+
+body { 
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+    background: #f5f5f7; 
+    color: var(--text-main); 
+    overflow-x: hidden; 
+}
 
 /* =========================================
-   2. NAVBAR CONTAINER
+   2. NAVBAR STRUCTURE (Base Layout)
    ========================================= */
 .navbar {
     position: fixed;
     top: 0; left: 0; width: 100%;
     height: var(--header-safe);
     padding-top: env(safe-area-inset-top);
-    
-    /* Default State: Glass Bar */
-    background: var(--bg-glass);
-    backdrop-filter: saturate(180%) blur(20px);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    border-bottom: 1px solid rgba(0,0,0,0.06);
-    
-    /* Z-INDEX HIERARCHY: Must be higher than menu to keep Brand/Toggle visible */
     z-index: 1100;
     
-    /* Animate the bar disappearing */
-    transition: background 0.5s var(--ease-editorial), border 0.5s var(--ease-editorial);
+    /* Transitions shared */
+    transition: background 0.4s ease, border 0.4s ease;
 }
 
 .nav-inner { 
     width: 100%; max-width: 1200px; margin: 0 auto;
     padding: 0 32px; height: 100%;
     display: flex; align-items: center; justify-content: space-between;
-    position: relative; /* Anchor for absolute elements */
+    position: relative;
 }
 
-/* =========================================
-   3. THE BRAND (The Pill Animation)
-   ========================================= */
+/* Base Typography for Brand */
 .brand {
     position: absolute;
     top: 50%;
-    /* START POSITION: Left aligned */
-    left: 32px; 
-    transform: translate(0, -50%); /* Only center vertically */
-    
+    transform: translateY(-50%);
     z-index: 1105;
-    text-decoration: none;
     
+    text-decoration: none;
     font-family: 'Playfair Display', serif;
     font-size: 1.6rem;
     font-weight: 800;
     color: var(--text-main);
     letter-spacing: -0.02em;
     white-space: nowrap;
-
-    /* PILL RESET STYLES */
-    background: transparent;
-    padding: 0;
-    border-radius: 99px;
-    box-shadow: none;
-
-    /* THE MAGIC: Animate all properties with the same curve */
-    transition: 
-        left 0.7s var(--ease-editorial),
-        transform 0.7s var(--ease-editorial),
-        background 0.5s var(--ease-editorial),
-        padding 0.5s var(--ease-editorial),
-        box-shadow 0.5s var(--ease-editorial),
-        font-size 0.5s var(--ease-editorial);
+    
+    border-radius: var(--radius-pill);
 }
 
-.brand .mid { 
-    font-weight: 400; font-style: italic; color: var(--text-muted); 
-    transition: color 0.3s ease; 
-}
+.brand .mid { font-weight: 400; font-style: italic; color: var(--text-muted); }
 .brand .dot { color: var(--accent); }
 
-/* Hover effect only when NOT scrolled */
-.navbar:not(.scrolled) .brand:hover .mid { color: var(--text-main); }
-
-
 /* =========================================
-   4. NAV LINKS (Desktop)
+   3. DESKTOP NAVIGATION LINKS
    ========================================= */
 .nav-links { 
     display: flex; gap: 32px; align-items: center; margin-left: auto;
-    /* When scrolling, links fade out and move up */
-    transform: translateY(0);
-    opacity: 1;
     transition: opacity 0.3s ease, transform 0.3s var(--ease-editorial);
 }
 
@@ -279,60 +241,19 @@ body { font-family: 'Inter', sans-serif; background: #f5f5f7; color: var(--text-
 
 .nav-btn {
     background: var(--text-main); color: #fff !important;
-    padding: 10px 22px; border-radius: 99px;
+    padding: 10px 22px; border-radius: var(--radius-pill);
     transition: transform 0.2s ease, background 0.2s ease;
 }
 .nav-btn:hover { background: var(--accent); transform: scale(1.04); }
 
 /* =========================================
-   5. SCROLLED STATE (The Transformation)
-   ========================================= */
-.navbar.scrolled {
-    background: transparent;
-    border-bottom-color: transparent;
-    backdrop-filter: none; -webkit-backdrop-filter: none;
-    pointer-events: none; /* Let clicks pass through empty space */
-}
-
-/* Links Disappear */
-.navbar.scrolled .nav-links {
-    opacity: 0;
-    transform: translateY(-15px);
-    pointer-events: none;
-}
-
-/* Brand Morphs to Pill */
-.navbar.scrolled .brand {
-    pointer-events: auto;
-    
-    /* END POSITION: Center aligned */
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.92); /* Center horizontally & vertically + shrink */
-    
-    /* Visual Style */
-    background: var(--bg-pill);
-    padding: 10px 32px;
-    backdrop-filter: saturate(180%) blur(20px);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    
-    /* Shadow for depth */
-    box-shadow: 
-        0 4px 12px rgba(0,0,0,0.03),
-        0 0 0 1px rgba(0,0,0,0.04) inset;
-}
-
-.navbar.scrolled .brand .mid { color: var(--text-main); }
-
-/* =========================================
-   6. BURGER TOGGLE
+   4. MOBILE ELEMENTS (Menu & Toggle)
    ========================================= */
 .mobile-toggle {
-    display: none; /* Desktop hidden */
+    display: none; /* Hidden on Desktop */
     width: 44px; height: 44px;
     background: transparent; border: none; cursor: pointer;
-    position: relative;
-    z-index: 1200; /* Higher than menu */
-    padding: 0;
+    position: relative; z-index: 1200; padding: 0;
 }
 
 .burger-line {
@@ -341,41 +262,22 @@ body { font-family: 'Inter', sans-serif; background: #f5f5f7; color: var(--text-
     border-radius: 2px;
     position: absolute; left: 50%;
     transform: translateX(-50%);
-    transition: 
-        top 0.4s var(--ease-editorial), 
-        bottom 0.4s var(--ease-editorial), 
-        transform 0.4s var(--ease-editorial),
-        background-color 0.2s ease;
+    transition: all 0.4s var(--ease-editorial);
 }
-
 .burger-line:first-child { top: 15px; }
 .burger-line:last-child { bottom: 15px; }
 
-/* Active X State */
-.mobile-toggle.active .burger-line:first-child {
-    top: 50%; transform: translate(-50%, -50%) rotate(45deg);
-}
-.mobile-toggle.active .burger-line:last-child {
-    bottom: 50%; top: 50%; transform: translate(-50%, -50%) rotate(-45deg);
-}
+/* Active Burger State */
+.mobile-toggle.active .burger-line:first-child { top: 50%; transform: translate(-50%, -50%) rotate(45deg); }
+.mobile-toggle.active .burger-line:last-child { bottom: 50%; top: 50%; transform: translate(-50%, -50%) rotate(-45deg); }
 
-/* Scrolled Burger (Optional: make it a circle) */
-.navbar.scrolled .mobile-toggle {
-    pointer-events: auto;
-    background: var(--bg-pill);
-    border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-
-/* =========================================
-   7. MOBILE MENU OVERLAY
-   ========================================= */
+/* Mobile Menu Overlay */
 .mobile-menu {
     position: fixed; inset: 0; width: 100%; height: 100vh;
     background: rgba(255, 255, 255, 0.98);
     backdrop-filter: saturate(180%) blur(24px);
     -webkit-backdrop-filter: saturate(180%) blur(24px);
-    z-index: 1050; /* Lower than Navbar (1100) */
+    z-index: 1050;
     
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     opacity: 0; visibility: hidden; pointer-events: none;
@@ -384,8 +286,6 @@ body { font-family: 'Inter', sans-serif; background: #f5f5f7; color: var(--text-
 
 .mobile-menu.active { opacity: 1; visibility: visible; pointer-events: auto; }
 
-.mobile-links { display: flex; flex-direction: column; gap: 24px; text-align: center; }
-
 .mobile-links a {
     font-family: 'Playfair Display', serif; 
     font-size: 2.8rem; font-weight: 600;
@@ -393,261 +293,224 @@ body { font-family: 'Inter', sans-serif; background: #f5f5f7; color: var(--text-
     opacity: 0; transform: translateY(30px);
     transition: opacity 0.5s ease, transform 0.6s var(--ease-editorial);
 }
-
-.mobile-links a.mobile-cta {
-    font-family: 'Inter', sans-serif; font-size: 1.1rem;
-    background: var(--accent); color: white;
-    padding: 16px 32px; border-radius: 99px;
-    margin-top: 16px; box-shadow: 0 10px 20px rgba(0,113,227,0.2);
-}
-
 .mobile-menu.active .mobile-links a { opacity: 1; transform: translateY(0); }
+/* Stagger delays */
 .mobile-menu.active .mobile-links a:nth-child(1) { transition-delay: 0.1s; }
 .mobile-menu.active .mobile-links a:nth-child(2) { transition-delay: 0.15s; }
 .mobile-menu.active .mobile-links a:nth-child(3) { transition-delay: 0.2s; }
-.mobile-menu.active .mobile-links a:nth-child(4) { transition-delay: 0.25s; }
-.mobile-menu.active .mobile-links a:nth-child(5) { transition-delay: 0.3s; }
-
 
 /* =========================================
-   8. RESPONSIVE
+   5. LOGIC: DESKTOP (Width > 768px)
+   ========================================= */
+@media (min-width: 769px) {
+    /* Base Glass Bar */
+    .navbar {
+        background: var(--bg-glass);
+        backdrop-filter: saturate(180%) blur(20px);
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
+        border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    /* Brand Animation Properties */
+    .brand {
+        left: 32px;
+        padding: 0;
+        background: transparent;
+        box-shadow: none;
+        
+        transition: 
+            left 0.7s var(--ease-editorial),
+            transform 0.7s var(--ease-editorial),
+            background 0.5s var(--ease-editorial),
+            padding 0.5s var(--ease-editorial),
+            box-shadow 0.5s var(--ease-editorial);
+    }
+
+    /* --- SCROLLED STATE (MORPHING) --- */
+    .navbar.scrolled {
+        background: transparent;
+        border-color: transparent;
+        backdrop-filter: none; -webkit-backdrop-filter: none;
+        pointer-events: none;
+    }
+
+    .navbar.scrolled .nav-links {
+        opacity: 0; transform: translateY(-15px); pointer-events: none;
+    }
+
+    .navbar.scrolled .brand {
+        pointer-events: auto;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.92);
+        
+        padding: 10px 32px;
+        background: var(--bg-pill);
+        backdrop-filter: saturate(180%) blur(20px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05), 0 0 0 1px rgba(0,0,0,0.04) inset;
+    }
+    
+    .navbar.scrolled .brand .mid { color: var(--text-main); }
+}
+
+/* =========================================
+   6. LOGIC: MOBILE (Width <= 768px)
    ========================================= */
 @media (max-width: 768px) {
     .nav-links { display: none; }
-    .mobile-toggle { display: flex; }
     
-    /* Adjust Pill Behavior for Mobile if desired */
-    /* Often better to keep logo left on mobile and just add background */
+    /* Base Mobile Layout */
+    .navbar { background: transparent; }
+    
+    .brand {
+        left: 24px; /* Fixed Position */
+        padding: 10px 24px; /* Fixed Spacing (Invisible initially) */
+        /* Transition only appearance, NEVER position */
+        transition: background 0.4s ease, box-shadow 0.4s ease;
+    }
+    
+    .mobile-toggle {
+        display: flex;
+        position: absolute; right: 24px; top: 50%;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        transition: background 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    /* --- SCROLLED STATE (STATIC PILL FADE-IN) --- */
+    .navbar.scrolled {
+        pointer-events: none; /* Let clicks pass through container */
+    }
+
+    /* Brand "Turns On" */
     .navbar.scrolled .brand {
-        left: 32px; /* Keep left */
-        transform: translate(0, -50%) scale(1);
-        padding: 8px 20px;
+        pointer-events: auto;
+        background: var(--bg-pill);
+        backdrop-filter: saturate(180%) blur(20px);
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
+        box-shadow: 0 4px 12px -2px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04) inset;
+    }
+
+    /* Toggle "Turns On" */
+    .navbar.scrolled .mobile-toggle {
+        pointer-events: auto;
+        
+        background: var(--bg-pill);
+        box-shadow: 0 4px 12px -2px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04) inset;
     }
 }
+
+
+
+
+
+
+/*Menu aperto*/
 /* =========================================
-   7. MOBILE MENU OVERLAY
+   MOBILE MENU OVERLAY (Structure & Design)
    ========================================= */
 .mobile-menu {
     position: fixed;
-    inset: 0; 
+    inset: 0; /* Occupa tutto lo schermo */
     width: 100%;
     height: 100vh;
     
+    /* Sfondo Vetro Apple */
     background: rgba(255, 255, 255, 0.96);
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     
-    /* MODIFICA: 1050 è inferiore alla navbar (1100), quindi la navbar sta sopra */
-    z-index: 1050; 
+    /* Z-Index: Sotto il burger (1200) ma sopra il resto */
+    z-index: 1050;
     
+    /* Flexbox per centrare tutto */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 32px;
+    gap: 32px; /* Spazio verticale tra i link */
     
+    /* Stato Iniziale (Chiuso) */
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: all 0.4s var(--ease-apple);
+    transition: opacity 0.4s var(--ease-editorial), visibility 0.4s;
 }
 
+/* Stato Attivo (Aperto) */
 .mobile-menu.active {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
 }
 
-/* Links */
+/* =========================================
+   LINKS TYPOGRAPHY
+   ========================================= */
 .mobile-menu a {
+    /* Font da Titolo di Giornale */
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-size: clamp(2.5rem, 6vw, 3.5rem); /* Grandi e scalabili */
     font-weight: 600;
     color: var(--text-main);
     text-decoration: none;
     line-height: 1.1;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.03em;
     
+    /* Setup per l'animazione di entrata */
     opacity: 0;
-    transform: translateY(40px);
-    transition: color 0.3s ease, transform 0.3s ease;
+    transform: translateY(40px); /* Partono dal basso */
+    transition: color 0.3s ease; /* Solo colore per hover */
 }
 
+/* Hover Effect */
 .mobile-menu a:hover {
     color: #000;
-    transform: scale(1.05) translateY(0);
-}
-
-/* Subscribe Button */
-.mobile-menu a:last-child {
-    font-family: 'Inter', sans-serif !important;
-    font-size: 1.1rem !important;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    margin-top: 24px;
-    padding: 16px 32px;
-    color: #fff !important;
-    background: var(--accent);
-    border-radius: var(--radius-pill);
-    box-shadow: 0 10px 20px rgba(0, 113, 227, 0.2);
-}
-
-.mobile-menu a:last-child:hover {
-    background: var(--accent-hover);
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 15px 30px rgba(0, 113, 227, 0.3);
-}
-
-/* Stagger Animation */
-.mobile-menu.active a {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.5s ease, transform 0.6s var(--ease-apple);
+    transform: scale(1.05); /* Leggero zoom quando attivo */
+    transition: transform 0.3s var(--ease-editorial), color 0.3s;
 }
 
 /* =========================================
-   8. MEDIA QUERIES
+   CTA "ABBONATI ORA" (L'ultimo link)
    ========================================= */
-@media (max-width: 768px) {
-    .mobile-toggle { display: flex; }
-    .nav-links { display: none; }
+/* Usiamo :last-child perché non possiamo toccare l'HTML per aggiungere classi */
+.mobile-menu a:last-child {
+    /* Cambiamo font per distinguerlo (Functional Font) */
+    font-family: 'Inter', -apple-system, sans-serif !important; 
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    
+    /* Nonostante lo stile inline nell'HTML, questo aiuta il layout */
+    margin-top: 40px !important; /* Spinge via il CTA dal menu */
+    
+    /* Facciamolo sembrare un bottone anche senza background */
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 99px;
+    transition: transform 0.2s ease, background 0.2s ease;
 }
 
-
-
-
-
-
-
-
-
-/* --- 6. MOBILE RESPONSIVE LOGIC --- */
-@media (max-width: 768px) {
-    .nav-links { display: none; }
-    .mobile-toggle { display: block; margin-left: auto; }
-    
-    .brand { left: 20px; transition: none; } /* No movement on mobile */
-
-    /* Override Scrolled Logic for Mobile (Keep it a normal bar) */
-    .navbar.scrolled {
-        background: var(--bg-glass);
-        border-bottom: 1px solid rgba(0,0,0,0.05);
-        backdrop-filter: saturate(180%) blur(20px);
-        pointer-events: auto;
-    }
-    
-    .navbar.scrolled .brand {
-        left: 20px; top: 50%;
-        transform: translateY(-50%); /* Don't center it */
-        background: transparent;
-        padding: 0; box-shadow: none; border-radius: 0;
-    }
-}
-/* --- 6. MOBILE RESPONSIVE LOGIC (Aggiornato per Pillola Mobile) --- */
-/* --- 6. MOBILE RESPONSIVE LOGIC (ANIMATED) --- */
-@media (max-width: 768px) {
-    
-    /* Nascondi i link desktop */
-    .nav-links { display: none; }
-    
-    /* --- SETUP ELEMENTI BASE (Stato Iniziale) --- */
-    
-    /* 1. Il Logo Mobile */
-    .brand {
-        /* Posizione di partenza (Sinistra) */
-        left: 24px;
-        top: 50%;
-        transform: translateY(-50%) scale(1);
-        
-        /* Stile base */
-        font-size: 1.5rem;
-        background: transparent;
-        padding: 0;
-        box-shadow: none;
-        border-radius: var(--radius-pill); /* Prepariamo il radius per l'animazione */
-        
-        /* ABILITIAMO L'ANIMAZIONE FLUIDA */
-        transition: all 0.6s var(--ease-apple);
-    }
-    
-    /* 2. Il Burger Menu */
-    .mobile-toggle { 
-        display: flex; align-items: center; justify-content: center;
-        
-        position: absolute; 
-        right: 20px; top: 50%;
-        transform: translateY(-50%);
-        
-        /* Dimensioni base */
-        width: 40px; height: 40px;
-        background: transparent; /* Sfondo trasparente iniziale */
-        border-radius: 50%;
-        box-shadow: none;
-        
-        /* Animazione fluida anche per il bottone */
-        transition: all 0.5s var(--ease-apple);
-    }
-
-    /* --- STATO SCROLLED (ANIMAZIONE VERSO PILLOLA) --- */
-    
-    /* A. La barra grande sparisce (fade out) */
-    .navbar.scrolled {
-        background: transparent;
-        border-bottom-color: transparent;
-        backdrop-filter: none; -webkit-backdrop-filter: none;
-        pointer-events: none; /* Click passanti */
-    }
-    
-    /* B. Il Logo scorre al centro e diventa Pillola */
-    /* B. Il Logo scorre al centro e diventa Pillola */
-    .navbar.scrolled .brand {
-        pointer-events: auto; /* Riattiva click */
-        
-        /* MOVIMENTO */
-        left: 50%;
-        transform: translate(-50%, -50%) scale(0.9);
-        
-        /* MORPHING STILE */
-        background: var(--bg-pill);
-        padding: 11px 28px;
-        backdrop-filter: saturate(180%) blur(20px);
-        
-        /* --- MODIFICA QUI: FORZIAMO I BORDI TONDI --- */
-        border-radius: 999px; /* Usa 999px per fare la pillola perfetta */
-        
-        /* Ombra delicata */
-        box-shadow: 
-            0 4px 12px -2px rgba(0,0,0,0.08),
-            0 0 0 1px rgba(0,0,0,0.04) inset;
-            
-        z-index: 1010;
-        white-space: nowrap;
-    }
-
-    /* C. Il Burger diventa un cerchio bianco */
-    .navbar.scrolled .mobile-toggle {
-        pointer-events: auto;
-        
-        background: var(--bg-pill); /* Sfondo bianco appare */
-        box-shadow: 
-            0 4px 12px -2px rgba(0,0,0,0.08),
-            0 0 0 1px rgba(0,0,0,0.04) inset;
-        
-        /* Piccolo aggiustamento posizione se necessario */
-        right: 18px; 
-    }
-    
-    /* Riduce leggermente le linee interne del burger quando è cerchiato */
-    .navbar.scrolled .burger-box {
-        transform: scale(0.85);
-        transition: transform 0.5s var(--ease-apple);
-    }
+.mobile-menu a:last-child:hover {
+    background: rgba(0, 113, 227, 0.1); /* Sfondo azzurrino al tocco */
+    transform: scale(1.05) translateY(0) !important;
 }
 
+/* =========================================
+   ANIMAZIONE A CASCATA (Waterfall)
+   ========================================= */
+/* Quando il menu è attivo, riporta i link alla posizione originale */
+.mobile-menu.active a {
+    opacity: 1;
+    transform: translateY(0);
+    /* Animazione fluida Apple */
+    transition: opacity 0.5s ease, transform 0.6s var(--ease-editorial);
+}
 
-
-
-
+/* Ritardi progressivi per ogni link (fino a 5 elementi) */
+.mobile-menu.active a:nth-child(1) { transition-delay: 0.1s; }
+.mobile-menu.active a:nth-child(2) { transition-delay: 0.15s; }
+.mobile-menu.active a:nth-child(3) { transition-delay: 0.2s; }
+.mobile-menu.active a:nth-child(4) { transition-delay: 0.25s; }
+.mobile-menu.active a:nth-child(5) { transition-delay: 0.35s; } /* Delay maggiore per il CTA */
 
 
 
@@ -662,35 +525,56 @@ body { font-family: 'Inter', sans-serif; background: #f5f5f7; color: var(--text-
 
 
 /* --- TICKER CONTAINER --- */
+/* --- TICKER CONTAINER (Premium) --- */
 .ticker-wrap {
     margin-top: var(--header-height);
-    height: 52px; /* Slightly taller for elegance */
-    background: #000000;
-    color: white;
+    height: 56px; /* Slightly taller for better vertical rhythm */
+    background: #1d1d1f; /* Apple's signature "Off-Black" */
+    color: rgba(255, 255, 255, 0.92);
     position: relative;
     overflow: hidden;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #222; /* Subtle separation */
+    border-bottom: 1px solid rgba(255,255,255,0.1); /* Softer separator */
     z-index: 10;
+    user-select: none; /* Prevents accidental text selection while scrolling */
+    
+    /* Hardware acceleration for the whole container */
+    transform: translateZ(0);
 }
 
-/* Gradient Masks */
+/* --- GRADIENT MASKS (Smoother fade) --- */
 .fade-mask {
-    position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2; pointer-events: none;
+    position: absolute; 
+    top: 0; bottom: 0; 
+    width: 150px; /* Wider mask for elegance */
+    z-index: 2; 
+    pointer-events: none;
 }
-.fade-mask.left { left: 0; background: linear-gradient(to right, #000, transparent); }
-.fade-mask.right { right: 0; background: linear-gradient(to left, #000, transparent); }
+
+/* Using RGB values allows for smoother transparency gradients */
+.fade-mask.left { 
+    left: 0; 
+    background: linear-gradient(to right, #1d1d1f 20%, rgba(29,29,31,0) 100%); 
+}
+.fade-mask.right { 
+    right: 0; 
+    background: linear-gradient(to left, #1d1d1f 20%, rgba(29,29,31,0) 100%); 
+}
 
 /* --- TRACK ANIMATION --- */
 .ticker-track {
     display: flex;
-    gap: 0; /* Gap handled by padding in items */
-    /* Calculation: We move -50% because content is duplicated exactly once */
-    animation: scroll 40s linear infinite;
-    will-change: transform; /* Hardware acceleration */
+    align-items: center;
+    /* Hardware acceleration hacks to prevent text jitter */
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+    
+    animation: scroll 45s linear infinite; /* Slower, more readable speed */
 }
 
+/* Pause on hover (Smooth deceleration would require JS, but CSS pause is instant) */
 .ticker-wrap:hover .ticker-track {
     animation-play-state: paused;
 }
@@ -702,80 +586,132 @@ body { font-family: 'Inter', sans-serif; background: #f5f5f7; color: var(--text-
 
 /* --- INDIVIDUAL ITEMS --- */
 .ticker-item {
+    position: relative;
     flex-shrink: 0;
     display: flex;
     align-items: center;
-    padding: 0 40px; /* Generous spacing */
+    padding: 0 32px; /* Balanced spacing */
     text-decoration: none;
-    height: 52px;
-    border-right: 1px solid #222; /* Divider lines like a terminal */
-    transition: background 0.2s ease, opacity 0.3s ease;
+    height: 56px;
     cursor: pointer;
+    
+    /* Smooth transition for the focus effect */
+    transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1), transform 0.4s ease;
 }
 
-/* Hover: Highlight current, dim others */
-.ticker-wrap:hover .ticker-item { opacity: 0.3; } /* Dim all */
-.ticker-wrap:hover .ticker-item:hover { opacity: 1; background: #111; } /* Highlight active */
+/* Separator Dot (Replaces the ugly border line) */
+.ticker-item::after {
+    content: '•';
+    position: absolute;
+    right: 0;
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 10px;
+    transform: translateY(-1px); /* Optical alignment */
+}
 
-/* --- TYPOGRAPHY & TAGS --- */
+/* Interaction: Focus Logic */
+.ticker-wrap:hover .ticker-item { 
+    opacity: 0.25; /* Deep dim for non-hovered items */
+    filter: blur(0.5px); /* Cinematic depth of field effect */
+} 
+
+.ticker-wrap:hover .ticker-item:hover { 
+    opacity: 1; 
+    filter: blur(0);
+    transform: scale(1.02); /* Subtle lift */
+    z-index: 5;
+}
+
+/* --- TYPOGRAPHY --- */
 .t-text {
-    font-size: 0.85rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+    font-size: 0.9rem;
     font-weight: 400;
-    letter-spacing: 0.01em;
+    letter-spacing: -0.01em; /* Tighter editorial tracking */
     color: #f5f5f7;
     white-space: nowrap;
+    -webkit-font-smoothing: antialiased;
 }
 
+/* --- TAGS (The "Pill" Look) --- */
 .t-tag {
-    font-family: 'SF Mono', 'Menlo', monospace; /* Tech feel */
+    font-family: 'SF Mono', 'Menlo', monospace;
     font-size: 0.65rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    padding: 3px 8px;
-    border-radius: 4px;
-    border: 1px solid #333; /* Outline style */
-    color: #888;
-    margin-right: 12px;
+    
+    /* Pill Shape instead of Border Box */
+    padding: 4px 10px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.1); /* Glassy fill */
+    border: none; /* Removed outline */
+    
+    color: rgba(255, 255, 255, 0.8);
+    margin-right: 14px;
     display: flex;
     align-items: center;
     gap: 6px;
+    transition: background 0.3s ease;
+}
+
+/* Hovering the item brightens the tag */
+.ticker-item:hover .t-tag {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
 }
 
 /* Live Tag Styling */
 .t-tag.live {
-    border-color: rgba(255, 59, 48, 0.4);
-    color: #FF3B30; /* Apple Red */
-    background: rgba(255, 59, 48, 0.1);
+    background: rgba(255, 59, 48, 0.15); /* Apple Red Glass */
+    color: #FF453A;
 }
 
 .pulse-dot {
     width: 6px; height: 6px;
-    background: #FF3B30;
+    background: #FF453A;
     border-radius: 50%;
-    animation: pulse 2s infinite;
+    box-shadow: 0 0 8px rgba(255, 69, 58, 0.6); /* Glow */
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* Meta Data (Time/Stock %) */
+/* --- META DATA (Stock/Time) --- */
 .t-meta {
     font-family: 'SF Mono', monospace;
-    font-size: 0.7rem;
-    color: #666;
-    margin-left: 12px;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-left: 14px;
+    
+    /* Important: Tabular nums prevent numbers from wiggling during updates */
+    font-variant-numeric: tabular-nums; 
+    letter-spacing: 0;
 }
+
+/* Trend Colors for Stocks */
+.t-meta.up { color: #30D158; } /* Apple Green */
+.t-meta.down { color: #FF453A; } /* Apple Red */
 
 @keyframes pulse {
     0% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.8); }
+    50% { opacity: 0.5; transform: scale(0.9); }
     100% { opacity: 1; transform: scale(1); }
 }
 
-/* Mobile Adjustment */
+/* --- RESPONSIVE --- */
 @media (max-width: 768px) {
-    .ticker-item { padding: 0 24px; border-right: none; }
-    .fade-mask { width: 60px; }
-    .t-meta { display: none; } /* Hide metadata on mobile to save space */
+    .ticker-wrap { height: 50px; }
+    .ticker-item { padding: 0 20px; height: 50px; }
+    .t-tag { padding: 3px 8px; font-size: 0.6rem; }
+    .t-text { font-size: 0.85rem; }
+    
+    /* On mobile, usually safer to hide the meta data to prevent text wrap issues */
+    .t-meta { display: none; } 
+    
+    /* Reduce mask size on mobile */
+    .fade-mask { width: 40px; }
 }
+
+
 
 
 
@@ -787,115 +723,301 @@ body { font-family: 'Inter', sans-serif; background: #f5f5f7; color: var(--text-
 
 
 /* --- 4. HERO SECTION --- */
+/* --- 4. HERO SECTION (Editorial Standard) --- */
+
+/* Defining local animation variables for that physics-based feel */
+:root {
+    --ease-editorial: cubic-bezier(0.19, 1, 0.22, 1); /* Very smooth stop */
+    --hero-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.18);
+    --hero-shadow-hover: 0 45px 80px -20px rgba(0, 0, 0, 0.24);
+}
+
 .hero {
-    padding: 80px 0 100px;
+    /* More breathing room on top for a stately appearance */
+    padding: 120px 0 140px; 
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
+    grid-template-columns: 0.9fr 1.1fr; /* Text takes slightly less space for image dominance */
+    gap: 100px; /* Increased gap for cleaner separation */
     align-items: center;
-    min-height: 85vh; /* Almost full viewport */
+    min-height: 85vh;
 }
 
-.hero-text { position: relative; z-index: 2; padding-right: 20px; }
+/* Typography Container */
+.hero-text { 
+    position: relative; 
+    z-index: 2; 
+    padding-right: 0; 
+    animation: fadeIn 1s var(--ease-editorial);
+}
+
+/* The Lead Paragraph: Editorialized */
 .hero-text p { 
-    font-size: 1.35rem; margin-bottom: 48px; 
-    line-height: 1.6; max-width: 90%; 
-    color: var(--text-secondary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; /* Clean Sans */
+    font-size: 1.4rem; 
+    margin-bottom: 56px; 
+    line-height: 1.5; 
+    max-width: 95%; 
+    color: #424245; /* Apple's "Secondary Label" color */
+    font-weight: 400;
+    
+    /* Font rendering polish */
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.015em;
 }
 
+/* Premium Button: Tactile & Solid */
 .btn-primary {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
-    background: var(--text-main);
+    gap: 14px; /* More space between text and arrow */
+    background: #1d1d1f; /* True 'Apple Black' */
     color: white;
-    padding: 16px 32px;
-    border-radius: var(--radius-pill);
+    
+    /* Slightly larger, more clickable touch target */
+    padding: 18px 38px;
+    border-radius: 40px; /* Full pill shape */
+    
     font-weight: 500;
-    font-size: 1rem;
-    transition: all 0.3s var(--ease-out-expo);
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+    
+    /* Physics transition */
+    transition: all 0.6s var(--ease-editorial);
+    box-shadow: 0 10px 20px -10px rgba(0,0,0,0.3); /* Subtle initial lift */
 }
-.btn-primary svg { transition: transform 0.3s var(--ease-out-expo); }
-.btn-primary:hover { 
-    transform: translateY(-4px); 
-    box-shadow: 0 14px 28px rgba(0,0,0,0.15); 
-    background: #000;
-}
-.btn-primary:hover svg { transform: translateX(4px); }
 
+/* The Arrow Icon */
+.btn-primary svg { 
+    transition: transform 0.4s var(--ease-editorial);
+    will-change: transform;
+}
+
+/* Hover State: Scale instead of just lifting */
+.btn-primary:hover { 
+    transform: translateY(-2px) scale(1.02); 
+    background: #000000; /* Pure black on hover */
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.25); 
+}
+
+/* Arrow slide interaction */
+.btn-primary:hover svg { 
+    transform: translateX(6px); 
+}
+
+/* Active/Click State: The "Tactile" press */
+.btn-primary:active {
+    transform: translateY(0) scale(0.96);
+    box-shadow: 0 5px 10px -5px rgba(0,0,0,0.2); 
+}
+
+/* Hero Image: The "Magazine Cover" Look */
 .hero-visual {
     position: relative;
-    height: 650px;
-    border-radius: var(--radius-lg);
+    height: 700px; /* Taller stature */
+    border-radius: 24px; /* Refined corner radius */
     overflow: hidden;
-    /* Fancy border logic via shadow */
+    
+    /* Hardware acceleration to prevent jitter */
+    transform: translateZ(0); 
+    will-change: transform, box-shadow;
+    transition: box-shadow 0.8s var(--ease-editorial), transform 0.8s var(--ease-editorial);
+
+    /* Complex layered shadow for realism */
     box-shadow: 
-        0 20px 40px rgba(0,0,0,0.1),
-        inset 0 0 0 1px rgba(255,255,255,0.1); 
+        0 1px 2px rgba(0,0,0,0.05),
+        0 4px 8px rgba(0,0,0,0.05),
+        0 20px 40px -5px rgba(0,0,0,0.15);
+        
+    /* Inner border to separate image from white background */
+    border: 1px solid rgba(0,0,0,0.08); 
 }
-.hero-visual img { width: 100%; height: 100%; object-fit: cover; }
-.hero-visual:hover img { transform: scale(1.03); }
+
+.hero-visual:hover {
+    /* Slight tilt or lift on hover */
+    box-shadow: var(--hero-shadow-hover);
+    transform: translateY(-5px);
+}
+
+/* Cinematic "Ken Burns" Effect */
+.hero-visual img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    
+    /* Super slow, imperceptible movement adds luxury */
+    transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.hero-visual:hover img { 
+    transform: scale(1.04); /* Very subtle zoom, 3% only */
+}
+
+
+
+
+
 
 /* --- 5. HORIZONTAL SCROLL (Snap) --- */
-.scroll-section { padding: 40px 0 100px; }
-.section-header { 
-    margin-bottom: 40px; 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: flex-end; 
-    border-bottom: 1px solid var(--border-light);
-    padding-bottom: 20px;
+/* --- 5. HORIZONTAL SCROLL (Premium News Layout) --- */
+
+/* Smooth variable definitions for that Apple feel */
+:root {
+    --ease-apple: cubic-bezier(0.25, 0.1, 0.25, 1); /* Standard iOS easing */
+    --ease-elastic: cubic-bezier(0.34, 1.56, 0.64, 1); /* Slight bounce */
+    --shadow-soft: 0 4px 20px -5px rgba(0, 0, 0, 0.05);
+    --shadow-hover: 0 20px 40px -10px rgba(0, 0, 0, 0.12);
+    --radius-lg: 20px;
 }
 
+.scroll-section {
+    padding: 60px 0 100px;
+    background: var(--bg-body); /* Slight off-white, very common in high-end editorial */
+}
+
+/* Header: Clean and aligned */
+.section-header {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0 40px 20px; /* Align with scroll padding */
+    border-bottom: 1px solid rgba(0,0,0,0.06); /* Extremely subtle divider */
+}
+
+/* The Track: Invisible scrollbar, better snapping */
 .scroll-track {
     display: flex;
-    gap: 32px;
+    gap: 24px;
     overflow-x: auto;
+    overflow-y: hidden;
     scroll-snap-type: x mandatory;
-    padding: 20px 32px 60px; /* Bottom padding for shadows */
-    margin: 0 -32px;
-    -webkit-overflow-scrolling: touch;
+    
+    /* Smart Padding: Ensures first card aligns with content, but cutoff allows bleeding */
+    padding: 10px 40px 60px; 
+    scroll-padding-left: 40px; /* Vital for snap alignment */
+    
+    -webkit-overflow-scrolling: touch; /* Momentum scrolling */
 }
-/* Hide scrollbar visually but allow scroll */
-.scroll-track::-webkit-scrollbar { height: 6px; }
-.scroll-track::-webkit-scrollbar-track { background: transparent; }
-.scroll-track::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 10px; }
 
+/* Hide scrollbar completely for a cleaner look */
+.scroll-track::-webkit-scrollbar {
+    display: none; 
+}
+.scroll-track {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* The Card: Minimalist container */
 .brief-card {
-    flex: 0 0 340px;
-    height: 480px;
-    background: var(--bg-card);
-    border-radius: var(--radius-md);
-    scroll-snap-align: center;
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    transition: all 0.4s var(--ease-out-expo);
-    border: 1px solid var(--border-light);
+    flex: 0 0 320px; /* Slightly narrower for better density */
+    height: 460px;
+    background: #ffffff;
+    
+    /* Apple-style curvature */
+    border-radius: var(--radius-lg);
+    
+    /* Alignment */
+    scroll-snap-align: start; /* Align to start, not center, for reading flow */
+    
+    /* Physics & Visuals */
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(0,0,0,0.04); /* Almost invisible border for definition */
+    transition: transform 0.5s var(--ease-apple), box-shadow 0.5s var(--ease-apple);
+    
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     position: relative;
+    cursor: pointer;
 }
 
-.brief-card:hover { 
-    transform: translateY(-12px); 
-    box-shadow: var(--shadow-lg); 
+/* Hover State: "Lift" rather than "Move" */
+.brief-card:hover {
+    transform: translateY(-8px) scale(1.005);
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(0,0,0,0.0); /* Remove border visual on float */
 }
-.brief-card .img-box { height: 260px; overflow: hidden; position: relative; }
-.brief-card:hover .img-box img { transform: scale(1.08); }
 
-.brief-card .content { 
-    padding: 28px; 
-    flex-grow: 1; 
-    display: flex; 
+/* Image Area: Clipping and masking */
+.brief-card .img-box {
+    height: 240px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background: #f0f0f0; /* Loading skeleton color */
+}
+
+/* Image Handling: Slow zoom */
+.brief-card .img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s var(--ease-apple);
+    will-change: transform;
+}
+
+.brief-card:hover .img-box img {
+    transform: scale(1.05); /* Subtle zoom, not aggressive */
+}
+
+/* Content Area */
+.brief-card .content {
+    padding: 24px 28px;
+    flex-grow: 1;
+    display: flex;
     flex-direction: column;
     background: white;
+    position: relative;
     z-index: 2;
 }
-.brief-card h4 { 
-    font-family: 'Playfair Display', serif; 
-    font-size: 1.5rem; 
-    margin-bottom: 12px; 
+
+/* Typography: High Editorial Standard */
+.brief-card h4 {
+    font-family: 'Playfair Display', Georgia, serif; /* Fallback added */
+    font-size: 1.35rem;
+    line-height: 1.3;
+    font-weight: 700;
+    color: #1d1d1f; /* Apple's off-black */
+    margin-bottom: 12px;
+    
+    /* Text truncation for safety (max 3 lines) */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    
+    /* Font rendering improvements */
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.01em;
 }
+
+/* Optional: Add a subtle 'Read' indicator visual via CSS pseudo-element if desired */
+.brief-card .content::after {
+    content: 'Read Article →';
+    margin-top: auto; /* Push to bottom */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #0071e3; /* Apple Blue */
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.4s var(--ease-apple);
+}
+
+.brief-card:hover .content::after {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+
+
+
+
+
+
+
 
 /* --- 6. BENTO GRID (Advanced Layout) --- */
 .bento-grid {
