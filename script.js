@@ -343,3 +343,57 @@ function copyToClipboard() {
         }, 2000);
     });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const navbar = document.querySelector('.navbar');
+    const mobileToggle = document.querySelector('.mobile-toggle');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const body = document.body;
+
+    // 1. SCROLL EFFECT Logic
+    window.addEventListener('scroll', () => {
+        // Add .scrolled class if we scroll down more than 50px
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // 2. MOBILE MENU TOGGLE Logic
+    function toggleMenu() {
+        const isActive = mobileToggle.classList.contains('active');
+
+        // Toggle classes
+        mobileToggle.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+        
+        // Accessibility updates
+        mobileToggle.setAttribute('aria-expanded', !isActive);
+        
+        // Lock body scroll when menu is open
+        if (!isActive) {
+            body.style.overflow = 'hidden';
+        } else {
+            body.style.overflow = '';
+        }
+    }
+    
+    // Close menu when clicking a link
+    document.querySelectorAll('.mobile-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            if(mobileMenu.classList.contains('active')) toggleMenu();
+        });
+    });
+
