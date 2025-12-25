@@ -1,0 +1,174 @@
+/* --- AUTHORS PAGE SPECIFIC STYLES --- */
+
+/* 1. HEADER SPECIFICO */
+.authors-header {
+    padding-top: 180px; /* Spazio per la navbar fissa */
+    padding-bottom: 80px;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* 2. GRIGLIA DEGLI AUTORI */
+.authors-directory-grid {
+    display: grid;
+    /* 3 Colonne su Desktop */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 32px;
+}
+
+/* 3. CARD AUTORE (Il contenitore) */
+.author-dir-card {
+    background: #FFFFFF;
+    border-radius: var(--radius-lg, 24px);
+    padding: 32px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    
+    /* Stile Apple-like: Bordo sottile + Ombra leggera */
+    border: 1px solid rgba(0,0,0,0.04);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    
+    /* Transizione fisica */
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover Effect: La card sale */
+.author-dir-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    border-color: rgba(0,0,0,0.0);
+}
+
+/* 4. IMMAGINE / PLACEHOLDER */
+.author-img-wrapper {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.author-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    /* Bordo interno per stacco dal bianco */
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1); 
+    transition: transform 0.4s ease;
+}
+
+/* Effetto Zoom Immagine su Hover */
+.author-dir-card:hover .author-img-wrapper img {
+    transform: scale(1.08);
+}
+
+/* Placeholder per le iniziali (GC, VS) */
+.initials-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+}
+
+/* 5. TIPOGRAFIA INTERNA */
+.author-info {
+    width: 100%;
+}
+
+.author-role-tag {
+    display: inline-block;
+    font-family: 'SF Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent, #0071E3);
+    margin-bottom: 12px;
+    background: rgba(0, 113, 227, 0.05);
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.author-dir-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--text-main, #111);
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.author-dir-card p {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-secondary, #666);
+    line-height: 1.5;
+    margin-bottom: 24px;
+    
+    /* Limita il testo a 3 righe */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 6. FRECCIA ANIMATA */
+.card-arrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.2rem;
+    color: var(--accent, #0071E3);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.author-dir-card:hover .card-arrow {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 7. CARD "JOIN US" (Speciale) */
+.join-card {
+    background: #F9F9FB; /* Leggermente grigia per differenziarla */
+    border: 2px dashed rgba(0,0,0,0.05);
+    box-shadow: none;
+}
+.join-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+}
+
+/* --- RESPONSIVE --- */
+
+@media (max-width: 1024px) {
+    .authors-directory-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 Colonne su Tablet */
+    }
+}
+
+@media (max-width: 600px) {
+    .authors-directory-grid {
+        grid-template-columns: 1fr; /* 1 Colonna su Mobile */
+        gap: 24px;
+    }
+    
+    .authors-header {
+        padding-top: 120px;
+        padding-bottom: 40px;
+    }
+    
+    .headline { font-size: 2.5rem; }
+}

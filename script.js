@@ -446,7 +446,7 @@ async function loadArticlesByAuthor() {
     if (!container) return; // Se non siamo nella pagina autore, esci.
 
     const targetAuthor = container.getAttribute('data-author');
-    const jsonPath = '../content/content.json'; // Assicurati che il percorso sia corretto rispetto alla pagina HTML
+    const jsonPath = '../content/content.json'; // Percorso del JSON
 
     try {
         const response = await fetch(jsonPath);
@@ -465,13 +465,24 @@ async function loadArticlesByAuthor() {
             return;
         }
 
-        // 2. GENERAZIONE CARD (Usa il Template Literal `` per iniettare HTML)
+        // 2. GENERAZIONE CARD (risolvendo automaticamente i link)
         authorArticles.forEach(article => {
-            // Definisci il colore categoria se vuoi (opzionale, logica base qui)
+            // Risolvi il link per tornare alla cartella corretta
+            let resolvedUrl = article.url;
+
+            // Se il path contiene "authors/articles/", sostituisci con "articles/"
+            if (resolvedUrl.includes('authors/articles/')) {
+                resolvedUrl = resolvedUrl.replace('authors/articles/', 'articles/');
+            } else {
+                // fallback: se relativo, aggiungi ../
+                resolvedUrl = `../${resolvedUrl}`;
+            }
+
+            // Colore categoria opzionale
             let catColor = 'var(--accent)'; 
             
             const cardHTML = `
-                <a href="${article.url}" class="simple-article-card fade-in-up">
+                <a href="${resolvedUrl}" class="simple-article-card fade-in-up">
                     <div class="img-box" style="height: 240px; overflow: hidden; border-radius: var(--radius-md); margin-bottom: 20px;">
                         <img src="${article.image}" alt="${article.title}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);">
                     </div>
@@ -481,7 +492,6 @@ async function loadArticlesByAuthor() {
                 </a>
             `;
             
-            // Aggiungi la card al contenitore
             container.insertAdjacentHTML('beforeend', cardHTML);
         });
 
@@ -491,7 +501,7 @@ async function loadArticlesByAuthor() {
     }
 }
 
-// CSS aggiuntivo per l'animazione di entrata (inseriscilo nel tuo CSS o qui)
+// CSS aggiuntivo per animazioni (puoi anche metterlo nel tuo file CSS)
 const style = document.createElement('style');
 style.innerHTML = `
     .fade-in-up {
@@ -502,14 +512,52 @@ style.innerHTML = `
     @keyframes fadeInUp {
         to { opacity: 1; transform: translateY(0); }
     }
-    /* Stagger delay (opzionale, avanzato) */
     .simple-article-card:nth-child(1) { animation-delay: 0.1s; }
     .simple-article-card:nth-child(2) { animation-delay: 0.2s; }
     .simple-article-card:nth-child(3) { animation-delay: 0.3s; }
-    
-    /* Hover effect per le immagini generate via JS */
     .simple-article-card:hover img {
         transform: scale(1.05) !important;
     }
 `;
 document.head.appendChild(style);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ================== */
+/* ================== */
+/* ================== */
+window.onscroll = function() {
+    let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    let scrolled = (winScroll / height) * 100;
+    document.getElementById("progressBar").style.width = scrolled + "%";
+};
+
+function copyToClipboard() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+        const btn = document.getElementById('copyLinkBtn');
+        const textSpan = document.getElementById('copyText');
+        const originalText = textSpan.innerText;
+        
+        btn.classList.add('copied');
+        textSpan.innerText = 'Copiato!';
+        
+        setTimeout(() => {
+            btn.classList.remove('copied');
+            textSpan.innerText = originalText;
+        }, 2000);
+    });
+}

@@ -1,10 +1,32 @@
 [
     {
+    "id": "023",
+    "title": "Stack Overflow 2025: Il dominio di Python",
+    "category": "Deep Tech",
+    "date": "Dec 25, 2025",
+    "author": "Giulia Corsini",
+    "image": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2000",
+    "url": "articles/stack-overflow-survey-2025.html",
+    "summary": "L'adozione di Python cresce del 7% in un anno, trainata dall'AI. FastAPI e Rust stanno riscrivendo le regole del backend moderno.",
+    "tags": ["code", "ai", "featured", "scroll"]
+},
+{
+        "id": "022",
+        "title": "Python 3.15: Il JIT Nativo",
+        "category": "Deep Tech",
+        "date": "Dec 24, 2025",
+        "author": "Vittoria Sforza",
+        "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2000",
+        "url": "articles/python-jit-native.html",
+        "summary": "Il compilatore nativo promette un boost del 20% sulle performance. Una guida tecnica all'attivazione e ai benchmark della versione 3.15.",
+        "tags": ["code", "featured", "scroll"]
+    },
+{
         "id": "021",
         "title": "Danimarca: L'ultima lettera",
         "category": "Future",
         "date": "Dec 21, 2025",
-        "author": "Bianca Rossi",
+        "author": "Vittoria Sforza",
         "image": "https://images.unsplash.com/photo-1596495577886-d920f1fb7238?q=80&w=2074",
         "url": "articles/denmark-end-of-letters.html",
         "summary": "Dopo 400 anni, Copenaghen spegne il servizio postale statale. Un passo inevitabile verso il futuro o una perdita culturale?",
