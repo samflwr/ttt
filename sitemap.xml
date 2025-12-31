@@ -1,16 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                      http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
+  <url>
+    <loc>https://twotwentytwo.it/</loc>
+    <lastmod>2025-12-21T09:43:13+00:00</lastmod>
+  </url>
 
-<url>
-  <loc>https://twotwentytwo.it/</loc>
-  <lastmod>2025-12-21T09:43:13+00:00</lastmod>
-</url>
+  <!-- Articles -->
+  <url><loc>https://twotwentytwo.it/articles/bondi-memorial.html</loc></url>
+  <url><loc>https://twotwentytwo.it/articles/denmark-end-of-letters.html</loc></url>
+  <url><loc>https://twotwentytwo.it/articles/evans-bristol-rovers.html</loc></url>
+  <url><loc>https://twotwentytwo.it/articles/football-weekend-recap.html</loc></url>
+  <url><loc>https://twotwentytwo.it/articles/mexico-world-cup-exclusion.html</loc></url>
+  <url><loc>https://twotwentytwo.it/articles/python-jit-native.html</loc></url>
+  <url><loc>https://twotwentytwo.it/articles/stack-overflow-survey-2025.html</loc></url>
+  <url><loc>https://twotwentytwo.it/articles/turin-askatasuna.html</loc></url>
+  <url><loc>https://twotwentytwo.it/articles/uk-driving-test-crisis.html</loc></url>
+  <url><loc>https://twotwentytwo.it/articles/uk-warm-spaces.html</loc></url>
+  <url><loc>https://twotwentytwo.it/articles/virtual-gifts-guide.html</loc></url>
 
+  <!-- Authors -->
+  <url><loc>https://twotwentytwo.it/authors/authors.html</loc></url>
+  <url><loc>https://twotwentytwo.it/authors/bianca-rossi.html</loc></url>
+  <url><loc>https://twotwentytwo.it/authors/giulia-corsini.html</loc></url>
+  <url><loc>https://twotwentytwo.it/authors/vittoria-sforza.html</loc></url>
 
 </urlset>
